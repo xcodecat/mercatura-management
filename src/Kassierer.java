@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
-public class Kassierer extends Views {
+public class Kassierer extends Controller {
 	
 	private LinkedList<Produkt> warenkorb;
 	private Beliebtheitsgraph beliebtheitsgraph;
