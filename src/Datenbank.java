@@ -159,7 +159,7 @@ public class Datenbank {
 		
 		for(int i = 0; i < produkte.size(); i++) {
 			
-			if(produkte.get(i).getName() == name) {
+			if(produkte.get(i).getName().equals(name)) {
 				
 				return produkte.get(i);
 				
