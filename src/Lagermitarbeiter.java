@@ -1,4 +1,4 @@
-public class Lagermitarbeiter extends Views {
+public class Lagermitarbeiter extends Controller {
  
 	public Lagermitarbeiter(Datenbank datenbank) {
 		
