@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
-public class Geschaeftsfuehrer extends Views {
+public class Geschaeftsfuehrer extends Controller {
 	
 	private LinkedList<Double> tage;
 	private double umsatzGestern;
