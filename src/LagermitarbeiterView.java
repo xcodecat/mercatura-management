@@ -86,15 +86,20 @@ public class LagermitarbeiterView {
         		
         		String name = ort_name.getText().trim();
         		String ort = ort_ort.getText().trim();
-        		Boolean erfolg = lma.produktortVeraendern(ort, name);
-        		if(erfolg == true) {
+        		int fehler = lma.produktortVeraendern(ort, name);
+        		if(fehler == 0) {
         			
         			JOptionPane.showMessageDialog(frame_ort, "Ort erfolgreich geändert!", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
         			
         		}
-        		if(erfolg == false) {
+        		if(fehler == 1) {
         			
-        			JOptionPane.showMessageDialog(frame_ort, "Ort nicht verfügbar oder Name nicht verhanden", "Fehler", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(frame_ort, "Ort nicht verfügbar", "Fehler", JOptionPane.ERROR_MESSAGE);
+        			
+        		}
+        		if(fehler == 2) {
+        			
+        			JOptionPane.showMessageDialog(frame_ort, "Name nicht vorhanden", "Fehler", JOptionPane.ERROR_MESSAGE);
         			
         		}
         		ort_name.setText("");
@@ -133,16 +138,26 @@ public class LagermitarbeiterView {
 				
 					String name = regal_name.getText().trim();
 					int anzahl = Integer.parseInt(regal_anzahl.getText().trim());
-					boolean erfolg = lma.zuRegalHinzufuegen(anzahl, name);
-					if(erfolg == true) {
+					int fehler = lma.zuRegalHinzufuegen(anzahl, name);
+					if(fehler == 0) {
 	        			
 	        			JOptionPane.showMessageDialog(frame_regal, "Anzahl erfolgreich geändert!", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
 	        			
 	        		}
-	        		if(erfolg == false) {
+	        		if(fehler == 1) {
 	        			
 	        			JOptionPane.showMessageDialog(frame_regal, "Name nicht verhanden", "Fehler", JOptionPane.ERROR_MESSAGE);
 	        			
+	        		}
+	        		if(fehler == 4) {
+	        			
+	        			JOptionPane.showMessageDialog(frame_regal, "Keine Regalzuweisung", "Fehler", JOptionPane.ERROR_MESSAGE);
+	        			
+	        		}
+	        		if(fehler == 5) {
+	
+	        			JOptionPane.showMessageDialog(frame_regal, "Zu viel zu Regal hinzugefügt", "Fehler", JOptionPane.ERROR_MESSAGE);
+	
 	        		}
 	        		regal_name.setText("");
 	        		regal_anzahl.setText("");
@@ -167,15 +182,25 @@ public class LagermitarbeiterView {
 				
 					String name = regal_name.getText().trim();
 					int anzahl = Integer.parseInt(regal_anzahl.getText().trim());
-					boolean erfolg = lma.ausRegalEntfernen(anzahl, name);
-					if(erfolg == true) {
+					int fehler = lma.ausRegalEntfernen(anzahl, name);
+					if(fehler == 0) {
 	        			
 	        			JOptionPane.showMessageDialog(frame_regal, "Anzahl erfolgreich geändert!", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
 	        			
 	        		}
-	        		if(erfolg == false) {
+	        		if(fehler == 1) {
 	        			
 	        			JOptionPane.showMessageDialog(frame_regal, "Name nicht verhanden", "Fehler", JOptionPane.ERROR_MESSAGE);
+	        			
+	        		}
+	        		if(fehler == 3) {
+	        			
+	        			JOptionPane.showMessageDialog(frame_regal, "Zu viel aus Regal entfernt", "Fehler", JOptionPane.ERROR_MESSAGE);
+	        			
+	        		}
+	        		if(fehler == 4) {
+	        			
+	        			JOptionPane.showMessageDialog(frame_regal, "Keine Regalzuweisung", "Fehler", JOptionPane.ERROR_MESSAGE);
 	        			
 	        		}
 	        		regal_name.setText("");
@@ -222,13 +247,13 @@ public class LagermitarbeiterView {
 				
 					String name = lager_name.getText().trim();
 					int anzahl = Integer.parseInt(lager_anzahl.getText().trim());
-					boolean erfolg = lma.zuLagerHinzufuegen(anzahl, name);
-					if(erfolg == true) {
+					int fehler = lma.zuLagerHinzufuegen(anzahl, name);
+					if(fehler == 0) {
 	        			
 	        			JOptionPane.showMessageDialog(frame_lager, "Anzahl erfolgreich geändert!", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
 	        			
 	        		}
-	        		if(erfolg == false) {
+	        		if(fehler == 1) {
 	        			
 	        			JOptionPane.showMessageDialog(frame_lager, "Name nicht verhanden", "Fehler", JOptionPane.ERROR_MESSAGE);
 	        			
@@ -256,15 +281,20 @@ public class LagermitarbeiterView {
 				
 					String name = lager_name.getText().trim();
 					int anzahl = Integer.parseInt(lager_anzahl.getText().trim());
-					boolean erfolg = lma.ausLagerEntfernen(anzahl, name);
-					if(erfolg == true) {
+					int fehler = lma.ausLagerEntfernen(anzahl, name);
+					if(fehler == 0) {
 	        			
 	        			JOptionPane.showMessageDialog(frame_lager, "Anzahl erfolgreich geändert!", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
 	        			
 	        		}
-	        		if(erfolg == false) {
+	        		if(fehler == 1) {
 	        			
 	        			JOptionPane.showMessageDialog(frame_lager, "Name nicht verhanden", "Fehler", JOptionPane.ERROR_MESSAGE);
+	        			
+	        		}
+	        		if(fehler == 2) {
+	        			
+	        			JOptionPane.showMessageDialog(frame_regal, "Zu viel aus Lager entfernt", "Fehler", JOptionPane.ERROR_MESSAGE);
 	        			
 	        		}
 	        		regal_name.setText("");

@@ -6,37 +6,37 @@ public class Lagermitarbeiter extends Controller {
 		
 	}
  
-	public boolean produktortVeraendern(String ort, String name) {
+	public int produktortVeraendern(String ort, String name) {
 		
 		return datenbank.produktortVeraendern(ort, name);
 		
 	}
  
-	public boolean zuRegalHinzufuegen(int anzahl, String name) {
+	public int zuRegalHinzufuegen(int anzahl, String name) {
 		
-		boolean temp = datenbank.produktanzahlVeraendern(anzahl, false, name);
+		int temp = datenbank.produktanzahlVeraendern(anzahl, false, name);
 		return temp;
 		
 	}
 	
-	public boolean zuLagerHinzufuegen(int anzahl, String name) {
+	public int zuLagerHinzufuegen(int anzahl, String name) {
 		
-		boolean temp = datenbank.produktanzahlVeraendern(anzahl, true, name);
+		int temp = datenbank.produktanzahlVeraendern(anzahl, true, name);
 		datenbank.einkaufszahlenErhoehen(anzahl, name);
 		return temp;
 		
 	}
 	
-	public boolean ausRegalEntfernen(int anzahl, String name) {
+	public int ausRegalEntfernen(int anzahl, String name) {
 		
-		boolean temp = datenbank.produktanzahlVeraendern(-anzahl, false, name);
+		int temp = datenbank.produktanzahlVeraendern(-anzahl, false, name);
 		return temp;
 		
 	}
 	
-	public boolean ausLagerEntfernen(int anzahl, String name) {
+	public int ausLagerEntfernen(int anzahl, String name) {
 		
-		boolean temp = datenbank.produktanzahlVeraendern(-anzahl, true, name);
+		int temp = datenbank.produktanzahlVeraendern(-anzahl, true, name);
 		return temp;
 		
 	}
