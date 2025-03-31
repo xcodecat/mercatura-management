@@ -1,4 +1,4 @@
-public class Kunde extends Views {
+public class Kunde extends Controller {
 	
 	private Datenbank datenbank;
 	

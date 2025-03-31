@@ -19,23 +19,29 @@ public class Datenbank {
 	
 	public Produkt[] arrayAusgeben() {
 		
-		Produkt[] ptemp = (Produkt[]) produkte.toArray();
+		Produkt[] ptemp = new Produkt[produkte.size()];
+		for(int i = 0; i < produkte.size(); i++) {
+			
+			ptemp[i] = produkte.get(i);
+			
+		}
 		return ptemp;
 		
 	}
 	
-	public boolean produktortVeraendern(String ort, String name) {
+	public int produktortVeraendern(String ort, String name) {
 		
 		if(ortChecken(ort) == true) {
 			
 			if(produktSuchen(name) == null) {
 				
-				return false;
+				return 2;
 				
 			} else {
 				
 				produktSuchen(name).setOrt(ort);
-				return true;
+				ProduktSpeicher.speichern(produkte);
+				return 0;
 				
 			}
 			
@@ -43,7 +49,7 @@ public class Datenbank {
 		
 		else {
 			
-			return false;
+			return 1;
 			
 		}
 		
@@ -80,6 +86,7 @@ public class Datenbank {
 			
 			Produkt ptemp = produktSuchen(name);
 			ptemp.setRegalanzahl(ptemp.getRegalanzahl() - anzahl);
+			ProduktSpeicher.speichern(produkte);
 			umsatz = umsatz + ptemp.getPreis();
 			
 		}
@@ -93,7 +100,13 @@ public class Datenbank {
 			if(produktSuchen(name) != null) {
 				
 				Produkt ptemp = produktSuchen(name);
+				if(ptemp.getLageranzahl() + anzahl < 0) {
+					
+					return false;
+					
+				}
 				ptemp.setLageranzahl(ptemp.getLageranzahl() + anzahl);
+				ProduktSpeicher.speichern(produkte);
 				return true;
 				
 			} else {
@@ -107,14 +120,29 @@ public class Datenbank {
 		if(ort == false) {
 			
 			if(produktSuchen(name) != null) {
-						
+				
 				Produkt ptemp = produktSuchen(name);
-				ptemp.setRegalanzahl(ptemp.getRegalanzahl() + anzahl);
-				if(anzahl > 0) {
+				if(ptemp.getOrt() == "Lager") {
 					
+					return false;
+					
+				}				
+				if(anzahl > 0) {
+					if(ptemp.getLageranzahl() - anzahl < 0) {
+						
+						return false;
+						
+					}
 					ptemp.setLageranzahl(ptemp.getLageranzahl() - anzahl);
 					
 				}
+				if(ptemp.getRegalanzahl() + anzahl < 0) {
+					
+					return false;
+					
+				}
+				ptemp.setRegalanzahl(ptemp.getRegalanzahl() + anzahl);
+				ProduktSpeicher.speichern(produkte);
 				return true;
 				
 			} else {
@@ -136,7 +164,7 @@ public class Datenbank {
 		
 	}
 	
-	public void produktEntfernen(String name) {
+	public boolean produktEntfernen(String name) {
 		
 		Produkt ptemp = produktSuchen(name);
 		
@@ -144,8 +172,11 @@ public class Datenbank {
 			
 			produkte.remove(ptemp);
 			ProduktSpeicher.speichern(produkte);
+			return true;
 		
 		}
+		
+		return false;
 		
 	}
 
@@ -159,7 +190,7 @@ public class Datenbank {
 		
 		for(int i = 0; i < produkte.size(); i++) {
 			
-			if(produkte.get(i).getName() == name) {
+			if(produkte.get(i).getName().equals(name)) {
 				
 				return produkte.get(i);
 				
@@ -179,6 +210,7 @@ public class Datenbank {
 			ptemp.setEinkaufszahlen(ptemp.getEinkaufszahlen() + anzahl);
 			
 		}
+		ProduktSpeicher.speichern(produkte);
 		
 	}
 
