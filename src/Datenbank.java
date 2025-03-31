@@ -19,24 +19,29 @@ public class Datenbank {
 	
 	public Produkt[] arrayAusgeben() {
 		
-		Produkt[] ptemp = (Produkt[]) produkte.toArray();
+		Produkt[] ptemp = new Produkt[produkte.size()];
+		for(int i = 0; i < produkte.size(); i++) {
+			
+			ptemp[i] = produkte.get(i);
+			
+		}
 		return ptemp;
 		
 	}
 	
-	public boolean produktortVeraendern(String ort, String name) {
+	public int produktortVeraendern(String ort, String name) {
 		
 		if(ortChecken(ort) == true) {
 			
 			if(produktSuchen(name) == null) {
 				
-				return false;
+				return 2;
 				
 			} else {
 				
 				produktSuchen(name).setOrt(ort);
 				ProduktSpeicher.speichern(produkte);
-				return true;
+				return 0;
 				
 			}
 			
@@ -44,7 +49,7 @@ public class Datenbank {
 		
 		else {
 			
-			return false;
+			return 1;
 			
 		}
 		
