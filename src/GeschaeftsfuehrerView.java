@@ -9,6 +9,7 @@ public class GeschaeftsfuehrerView {
     private JList<String> produktListe;
     private DefaultListModel<String> produktListModel;
     private Geschaeftsfuehrer geschaeftsfuehrer;
+    private Datenbank datenbank;
 
     private int parseOrDefault(String text, int defaultValue) {
         try {
@@ -19,6 +20,7 @@ public class GeschaeftsfuehrerView {
     }
 
     public GeschaeftsfuehrerView(Datenbank datenbank) {
+        this.datenbank = datenbank;
         this.geschaeftsfuehrer = new Geschaeftsfuehrer(datenbank);
 
         frame = new JFrame("Geschäftsführer - Produktverwaltung");
@@ -75,27 +77,28 @@ public class GeschaeftsfuehrerView {
                     Produkt p = datenbank.produktSuchen(name);
                     if (p == null) return;
 
-                    // Felder immer aktualisieren (für Bearbeiten)
-                    nameField.setText(p.getName());
-                    ortField.setText(p.getOrt());
-                    lageranzahlField.setText(String.valueOf(p.getLageranzahl()));
-                    regalanzahlField.setText(String.valueOf(p.getRegalanzahl()));
-                    preisField.setText(String.valueOf(p.getPreis()));
-                    einkaufspreisField.setText(String.valueOf(p.getEinkaufspreis()));
-                    verkaufszahlenField.setText(String.valueOf(p.getVerkaufszahlen()));
-                    einkaufszahlenField.setText(String.valueOf(p.getEinkaufszahlen()));
-
                     // Popup nur bei Rechtsklick
-                    if (SwingUtilities.isRightMouseButton(evt)) {
-                        String info = "Produkt: " + p.getName()
-                                + "\nOrt: " + p.getOrt()
-                                + "\nPreis: " + p.getPreis() + " €"
-                                + "\nEinkaufspreis: " + p.getEinkaufspreis() + " €"
-                                + "\nVerkäufe: " + p.getVerkaufszahlen()
-                                + "\nEinkäufe: " + p.getEinkaufszahlen()
-                                + "\nLager: " + p.getLageranzahl()
-                                + "\nRegal: " + p.getRegalanzahl();
-                        JOptionPane.showMessageDialog(frame, info, "Produktinfo", JOptionPane.INFORMATION_MESSAGE);
+                    if (SwingUtilities.isLeftMouseButton(evt)) {
+                    	// Felder bei Rechtsklick aktualisieren (für Bearbeiten)
+                        nameField.setText(p.getName());
+                        ortField.setText(p.getOrt());
+                        lageranzahlField.setText(String.valueOf(p.getLageranzahl()));
+                        regalanzahlField.setText(String.valueOf(p.getRegalanzahl()));
+                        preisField.setText(String.valueOf(p.getPreis()));
+                        einkaufspreisField.setText(String.valueOf(p.getEinkaufspreis()));
+                        verkaufszahlenField.setText(String.valueOf(p.getVerkaufszahlen()));
+                        einkaufszahlenField.setText(String.valueOf(p.getEinkaufszahlen()));
+                    }
+                    
+                    if(SwingUtilities.isRightMouseButton(evt)) {
+                    	nameField.setText("");
+                    	ortField.setText("Lager");
+                    	lageranzahlField.setText("0");
+                    	regalanzahlField.setText("0");
+                    	preisField.setText("");
+                    	einkaufspreisField.setText("");
+                    	verkaufszahlenField.setText("0");
+                    	einkaufszahlenField.setText("");
                     }
                 }
             }
