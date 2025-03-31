@@ -95,6 +95,11 @@ public class Datenbank {
 			if(produktSuchen(name) != null) {
 				
 				Produkt ptemp = produktSuchen(name);
+				if(ptemp.getLageranzahl() + anzahl < 0) {
+					
+					return false;
+					
+				}
 				ptemp.setLageranzahl(ptemp.getLageranzahl() + anzahl);
 				ProduktSpeicher.speichern(produkte);
 				return true;
@@ -110,14 +115,28 @@ public class Datenbank {
 		if(ort == false) {
 			
 			if(produktSuchen(name) != null) {
-						
+				
 				Produkt ptemp = produktSuchen(name);
-				ptemp.setRegalanzahl(ptemp.getRegalanzahl() + anzahl);
-				if(anzahl > 0) {
+				if(ptemp.getOrt() == "Lager") {
 					
+					return false;
+					
+				}				
+				if(anzahl > 0) {
+					if(ptemp.getLageranzahl() - anzahl < 0) {
+						
+						return false;
+						
+					}
 					ptemp.setLageranzahl(ptemp.getLageranzahl() - anzahl);
 					
 				}
+				if(ptemp.getRegalanzahl() + anzahl < 0) {
+					
+					return false;
+					
+				}
+				ptemp.setRegalanzahl(ptemp.getRegalanzahl() + anzahl);
 				ProduktSpeicher.speichern(produkte);
 				return true;
 				
@@ -165,8 +184,6 @@ public class Datenbank {
 	public Produkt produktSuchen(String name) {
 		
 		for(int i = 0; i < produkte.size(); i++) {
-			
-			System.out.println(produkte.size());
 			
 			if(produkte.get(i).getName().equals(name)) {
 				
