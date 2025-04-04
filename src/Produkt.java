@@ -1,14 +1,49 @@
 public class Produkt {
 	
+	/**
+	 * Name des Produkts
+	 */
 	private String name;
+	/**
+	 * Ort des Produkts ("Lager" oder Regalort "BuchstabeZahl")
+	 */
 	private String ort;
+	/**
+	 * Anzahl der der einzelnen Ausführungen des Produkts im Lager
+	 */
 	private int lageranzahl;
+	/**
+	 * Anzahl der der einzelnen Ausführungen des Produkts im Regal
+	 */
 	private int regalanzahl;
+	/**
+	 * Verkaufspreis des Produkts
+	 */
 	private double preis;
+	/**
+	 * Anzahl der verkauften Stücke
+	 */
 	private int verkaufszahlen;
+	/**
+	 * Einkaufspreis des Produkts
+	 */
 	private double einkaufspreis;
+	/**
+	 * Anzahl der gekauften Stücke
+	 */
 	private int einkaufszahlen;
 	
+	/**
+	 * Erstellt ein neues Produkt mit den gegebenen Paramentern
+	 * @param name Name des Produkts
+	 * @param ort Ort des Produkts ("Lager" oder Regalort "BuchstabeZahl")
+	 * @param lageranzahl Anzahl der der einzelnen Ausführungen des Produkts im Lager
+	 * @param regalanzahl Anzahl der der einzelnen Ausführungen des Produkts im Regal
+	 * @param preis Verkaufspreis des Produkts
+	 * @param verkaufszahlen Anzahl der verkauften Stücke
+	 * @param einkaufspreis Einkaufspreis des Produkts
+	 * @param einkaufszahlen Anzahl der gekauften Stücke
+	 */
 	public Produkt(String name, String ort, int lageranzahl, int regalanzahl, double preis, int verkaufszahlen, double einkaufspreis, int einkaufszahlen) {
 		
 		this.name = name;
