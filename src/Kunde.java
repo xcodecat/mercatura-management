@@ -8,11 +8,10 @@ public class Kunde extends Controller {
 		
 	}
 	
-	public void produktSuchen(String name) { //evtl Eingabeparameter, wenn nach Dropdow-Menu gebraucht
+	public Produkt produktSuchen(String name) { //evtl Eingabeparameter, wenn nach Dropdow-Menu gebraucht
 		
 		Produkt produkt = datenbank.produktSuchen(name);
-		produkt.getOrt();
-		//produkt.getBild();
+		return produkt;
 		
 	}
 	
