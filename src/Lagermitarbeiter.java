@@ -14,8 +14,7 @@ public class Lagermitarbeiter extends Controller {
  
 	public int zuRegalHinzufuegen(int anzahl, String name) {
 		
-		int temp = datenbank.produktanzahlVeraendern(anzahl, false, name);
-		return temp;
+		return datenbank.produktanzahlVeraendern(anzahl, false, name);		
 		
 	}
 	
@@ -29,15 +28,13 @@ public class Lagermitarbeiter extends Controller {
 	
 	public int ausRegalEntfernen(int anzahl, String name) {
 		
-		int temp = datenbank.produktanzahlVeraendern(-anzahl, false, name);
-		return temp;
+		return datenbank.produktanzahlVeraendern(-anzahl, false, name);
 		
 	}
 	
 	public int ausLagerEntfernen(int anzahl, String name) {
 		
-		int temp = datenbank.produktanzahlVeraendern(-anzahl, true, name);
-		return temp;
+		return datenbank.produktanzahlVeraendern(-anzahl, true, name);
 		
 	}
 

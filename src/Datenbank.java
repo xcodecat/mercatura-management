@@ -1,22 +1,34 @@
 import java.util.LinkedList;
 
 public class Datenbank {
-	
+	/**
+	 * Liste aller Produkte des Supermarkts
+	 */
 	private LinkedList<Produkt> produkte;
+	/**
+	 * gesamter Umsatz
+	 */
 	private double umsatz;
 	
+	/**
+	 * erzeugt eine neue Datenbank, die die Produkte aus einer permanenten Datei läd
+	 */
 	public Datenbank() {
 		
 		produkte = ProduktSpeicher.laden();
 		
 	}
-
+	
 	public LinkedList<Produkt> produkteAusgeben() {
 		
 		return produkte;
 		
 	}
 	
+	/**
+	 * gibt die Liste aller Produkte als Array aus
+	 * @return Produkt[]
+	 */
 	public Produkt[] arrayAusgeben() {
 		
 		Produkt[] ptemp = new Produkt[produkte.size()];
@@ -29,6 +41,15 @@ public class Datenbank {
 		
 	}
 	
+	/**
+	 * verändert den Ort eines Produkts
+	 * @param ort  Regalort des Produkts im Format BuchstabeZahl
+	 * @param name  Name des veränderten Produkts
+	 * @return int, der Art eines möglichen Fehlers angibt
+	 * 0: kein Fehler
+	 * 1: Ort nicht vorhanden oder schon 4 Produkte an diesem Ort (--> voll)
+	 * 2: Produkt nicht vorhanden (oder z.B. Name falsch geschrieben)
+	 */
 	public int produktortVeraendern(String ort, String name) {
 		
 		if(ortChecken(ort) == true) {
@@ -55,6 +76,11 @@ public class Datenbank {
 		
 	}
 	
+	/**
+	 * überprüft, ob ein Regalort bereits besetzt ist (4 Produkte --> besetzt)
+	 * @param ort Ort, der gecheckt werden soll (Format BuchstabeZahl)
+	 * @return true, wenn frei; false, wenn besetzt
+	 */
 	public boolean ortChecken(String ort) {	
 		
 		int z = 0;
@@ -80,7 +106,16 @@ public class Datenbank {
 		
 	}
 	
-	public void produktanzahlVeraendernK(int anzahl, String name) {
+	/**
+	 * Spezielle Methode für Verkäufer
+	 * entfernt das gekaufte Produkt aus dem Regal und rechnet den Verkaufspreis auf den Umsatz auf
+	 * @param anzahl des verkauften Produkts
+	 * @param name des verkauften Produkts
+	 * @return mögliche Fehlermeldungen
+	 * 0: kein Fehler
+	 * 1: Name nicht vorhanden (oder falsch geschrieben)
+	 */
+	public int produktanzahlVeraendernK(int anzahl, String name) {
 		
 		if(produktSuchen(name) != null) {
 			
@@ -88,11 +123,29 @@ public class Datenbank {
 			ptemp.setRegalanzahl(ptemp.getRegalanzahl() - anzahl);
 			ProduktSpeicher.speichern(produkte);
 			umsatz = umsatz + ptemp.getPreis();
+			return 0;
 			
 		}
+		
+		return 1;
 				
 	}
 	
+	/**
+	 * verändert die Anzahl der Produkte in Lager oder Regal(gesteuert durch boolean)
+	 * entfernen durch eine negative Anzahl
+	 * bei Hinzufügen zu Regal wird dieselbe Anzahl aus Lager entfernt
+	 * @param anzahl, gibt Anzahl der hinzugefügten (anzahl > 0) oder der entfernten (anzahl < 0) Produkte an
+	 * @param ort als boolean: true, wenn in Lager; false, wenn in Regal
+	 * @param name des betreffenden Produkts
+	 * @return int, der einen möglichen Fehler angibt
+	 * 0: kein Fehler
+	 * 1: Name nicht vorhanden (oder falsch geschrieben)
+	 * 2: mehr aus Lager entfernt als vorhanden ist
+	 * 3: mehr aus Regal entfernt als vorhanden ist
+	 * 4: kein Regalort zugewiesen
+	 * 5: mehr zu Regal hinzugefügt, als im Lager vorhanden ist
+	 */
 	public int produktanzahlVeraendern(int anzahl, boolean ort, String name) {
 		
 		if(ort == true) {
@@ -157,6 +210,10 @@ public class Datenbank {
 		
 	}
 	
+	/**
+	 * fügt neues Produkt zu Liste hinzu, schreibt es in die permantenten Datei
+	 * @param produkt, das eingefügt werden soll
+	 */
 	public void produktEinfuegen(Produkt produkt) {
 		
 		produkte.add(produkt);
@@ -164,6 +221,11 @@ public class Datenbank {
 		
 	}
 	
+	/**
+	 * entfernt ein Produkt aus der Liste, speichert diese Änderung in der permanenten Datei
+	 * @param name des zu entfernenden Produktes
+	 * @return true, wenn erfolgreich entfernt; false, wenn Produkt nicht vorhanden
+	 */
 	public boolean produktEntfernen(String name) {
 		
 		Produkt ptemp = produktSuchen(name);
@@ -186,6 +248,11 @@ public class Datenbank {
 		
 	}
 	
+	/**
+	 * sucht ein Produkt anhand des Namen und gibt dies aus
+	 * @param name des gesuchten Produkts
+	 * @return gesuchtes Element der Klasse Produkt oder null, wenn kein Produkt gefunden wurde
+	 */
 	public Produkt produktSuchen(String name) {
 		
 		for(int i = 0; i < produkte.size(); i++) {
@@ -202,15 +269,20 @@ public class Datenbank {
 		
 	}
 	
+	/**
+	 * erhöht die im Produkt gespeicherten Einkaufszahlen
+	 * @param anzahl, der verkauften Stücke
+	 * @param name, des betreffenden Produkts
+	 */
 	public void einkaufszahlenErhoehen (int anzahl, String name) {
 		
 		Produkt ptemp = produktSuchen(name);
 		if(ptemp != null) {
 			
 			ptemp.setEinkaufszahlen(ptemp.getEinkaufszahlen() + anzahl);
+			ProduktSpeicher.speichern(produkte);
 			
 		}
-		ProduktSpeicher.speichern(produkte);
 		
 	}
 
