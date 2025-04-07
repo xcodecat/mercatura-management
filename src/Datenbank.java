@@ -41,6 +41,7 @@ public class Datenbank {
 		
 	}
 	
+	//Test4
 	/**
 	 * verändert den Ort eines Produkts
 	 * @param ort  Regalort des Produkts im Format BuchstabeZahl
