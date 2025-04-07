@@ -5,11 +5,27 @@ import java.awt.event.ActionListener;
 
 public class LagermitarbeiterView {
 	
+	/**
+	 * Frames der Grafikoberfläche des LagermitarbeitersViews
+	 */
 	private JFrame frame_main, frame_ort, frame_lager, frame_regal;
+	/**
+	 * Buttons der Grafikoberfläche des LagermitarbeitersViews
+	 */
 	private JButton ort, regal, lager, ort_ver, regal_hinzu, regal_ent, lager_hinzu, lager_ent;
+	/**
+	 * Textfelder der Grafikoberfläche des LagermitarbeitersViews
+	 */
 	private JTextField ort_ort, ort_name, regal_name, regal_anzahl, lager_name, lager_anzahl;
+	/**
+	 * Lagermitarbeiter(Controller), an den Inputs weitergegeben werden
+	 */
 	private Lagermitarbeiter lma;
 	
+	/**
+	 * erstellt einen neue LagermitarbeiterView
+	 * @param datenbank Datenbank, mit der Lagermitarbeiter arbeitet
+	 */
 	public LagermitarbeiterView(Datenbank datenbank) {
 		
 		lma = new Lagermitarbeiter(datenbank);
@@ -30,7 +46,11 @@ public class LagermitarbeiterView {
         frame_main.add(lager);
         
         ort.addActionListener(new ActionListener() {
-
+        	
+        	/**
+        	 * ruft Frame des Ortes auf
+        	 * @param e
+        	 */
 			public void actionPerformed(ActionEvent e) {
 				
 				frame_ort.setVisible(true);
@@ -40,7 +60,11 @@ public class LagermitarbeiterView {
         });
         
         regal.addActionListener(new ActionListener() {
-
+        	
+        	/**
+        	 * ruft Frame des Regals auf
+        	 * @param e
+        	 */
 			public void actionPerformed(ActionEvent e) {
 				
 				frame_regal.setVisible(true);
@@ -50,7 +74,11 @@ public class LagermitarbeiterView {
         });
         
         lager.addActionListener(new ActionListener() {
-
+        	
+        	/**
+        	 * ruft Frame des Lagers auf
+        	 * @param e
+        	 */
 			public void actionPerformed(ActionEvent e) {
 				
 				frame_lager.setVisible(true);
@@ -82,6 +110,11 @@ public class LagermitarbeiterView {
         
         ort_ver.addActionListener(new ActionListener() {
         	
+        	/**
+        	 * verändert den Ort durch Weitergabe der Inputs name und ort an den Lagermitarbeiter
+        	 * gibt Fehlermeldungen aus
+        	 * @param e
+        	 */
         	public void actionPerformed(ActionEvent e) {
         		
         		String name = ort_name.getText().trim();
@@ -131,7 +164,12 @@ public class LagermitarbeiterView {
         frame_regal.add(regal_ent);
         
         regal_hinzu.addActionListener(new ActionListener(){
-
+        	
+        	/**
+        	 * fügt Produkte zum Regal durch Weitergabe der Inputs name und anzahl an den Lagermitarbeiter hinzu
+        	 * gibt Fehlermeldungen aus
+        	 * @param e
+        	 */
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
@@ -175,7 +213,12 @@ public class LagermitarbeiterView {
         });
         
         regal_ent.addActionListener(new ActionListener(){
-
+        	
+        	/**
+        	 * entfernt Produkte aus dem Regal durch Weitergabe der Inputs name und anzahl an den Lagermitarbeiter
+        	 * gibt Fehlermeldungen aus
+        	 * @param e
+        	 */
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
@@ -240,7 +283,11 @@ public class LagermitarbeiterView {
         frame_lager.add(lager_ent);
         
         lager_hinzu.addActionListener(new ActionListener(){
-
+        	
+        	/**
+        	 * fügt Produkt zum Lager durch Weitergabe der Inputs name und anzahl an den Lagermitarbeiter hinzu
+        	 * @param e
+        	 */
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
@@ -274,7 +321,11 @@ public class LagermitarbeiterView {
         });
         
         lager_ent.addActionListener(new ActionListener(){
-
+        	
+        	/**
+        	 * entfernt Produkte aus dem Lager durch Weitergabe der Inputs name und anzahl an den Lagermitarbeiter
+        	 * @param e
+        	 */
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
