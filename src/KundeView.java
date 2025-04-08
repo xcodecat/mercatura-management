@@ -1,7 +1,7 @@
 /**
  * Eingabefenster zum Suchen von Produkten und deren Atributen
  */
-package Supermarkt.src;
+
 
 import javax.swing.*;
 import java.awt.*;

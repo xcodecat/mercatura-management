@@ -1,4 +1,4 @@
-package Supermarkt.src;
+
 
 import java.util.LinkedList;
 

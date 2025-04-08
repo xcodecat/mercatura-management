@@ -5,8 +5,8 @@ public class Kassierer extends Controller {
 	private LinkedList<Produkt> warenkorb;
 	private Beliebtheitsgraph beliebtheitsgraph;
 
-	public Kassierer (Datenbank datenbank) {
-		
+	public Kassierer (Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
+		this.beliebtheitsgraph = beliebtheitsgraph;
 		this.datenbank = datenbank;
 		warenkorb = new LinkedList<Produkt>();
  
@@ -16,7 +16,6 @@ public class Kassierer extends Controller {
 		
 		datenbank.produktanzahlVeraendernK(anzahl, name);
 		warenkorb.add(datenbank.produktSuchen(name));
-		
 	}
  
 	public void warenkorbBeenden() {
