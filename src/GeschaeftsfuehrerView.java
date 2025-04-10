@@ -2,28 +2,50 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * GUI-Oberfläche für den Geschäftsführer zur Verwaltung von Produkten.
+ * Produkte können hinzugefügt, entfernt, angezeigt und bearbeitet werden.
+ */
 public class GeschaeftsfuehrerView {
+
+    /** Hauptfenster der Anwendung */
     private JFrame frame;
+    /** Eingabefelder für Produktinformationen */
     private JTextField nameField, ortField, lageranzahlField, regalanzahlField, preisField, einkaufspreisField, verkaufszahlenField, einkaufszahlenField;
-    private JButton einfuegenButton, entfernenButton, bearbeitenButton;
+    /** Buttons zum Hinzufügen, Entfernen und Speichern */
+    private JButton einfuegenButton, entfernenButton, speichernButton;
+    /** Liste zur Anzeige der vorhandenen Produkte */
     private JList<String> produktListe;
+    /** Model für die Produktliste */
     private DefaultListModel<String> produktListModel;
+    /** Instanz des Geschäftsführers */
     private Geschaeftsfuehrer geschaeftsfuehrer;
+    /** Verweis auf die zentrale Datenbank */
     private Datenbank datenbank;
 
-    private int parseOrDefault(String text, int defaultValue) {
-        try {
-            return text.trim().isEmpty() ? defaultValue : Integer.parseInt(text.trim());
-        } catch (NumberFormatException e) {
-            return defaultValue;
-        }
-    }
+    /**
+     * Hilfsmethode: Parsen eines Strings in eine Ganzzahl, oder Default-Wert zurückgeben.
+     * @param text Text, der geparst werden soll
+     * @param defaultValue Standardwert, falls Parsing fehlschlägt
+     * @return Integer-Wert oder defaultValue
+     */
+//    private int parseOrDefault(String text, int defaultValue) {
+//        try {
+//            return text.trim().isEmpty() ? defaultValue : Integer.parseInt(text.trim());
+//        } catch (NumberFormatException e) {
+//            return defaultValue;
+//        }
+//    }
 
+    /**
+     * Konstruktor: Erstellt die grafische Oberfläche und initialisiert alle Komponenten.
+     * @param datenbank Gemeinsame Produkt-Datenbank
+     */
     public GeschaeftsfuehrerView(Datenbank datenbank) {
         this.datenbank = datenbank;
         this.geschaeftsfuehrer = new Geschaeftsfuehrer(datenbank);
 
-        frame = new JFrame("Geschäftsführer - Produktverwaltung");
+        frame = new JFrame("Produktverwaltung");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 600);
         frame.setLayout(new BorderLayout());
@@ -33,16 +55,30 @@ public class GeschaeftsfuehrerView {
         eingabePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         nameField = new JTextField();
-        //Nicht bearbeitbar, da Ort zuerst Lager
-        ortField = new JTextField("Lager"); ortField.setEditable(false);
-        //Nicht bearbeitbar, da Ort zuerst Lager (ohne spezifiziertes Regal)
-        lageranzahlField = new JTextField("0"); lageranzahlField.setEditable(false);
-        //Nicht bearbeitbar, da Ort zuerst Lager (ohne spezifiziertes Regal)
-        regalanzahlField = new JTextField("0"); regalanzahlField.setEditable(false);
+
+        ortField = new JTextField("Lager");
+        ortField.setEditable(false);
+        ortField.setBackground(new Color(230, 230, 230));
+        ortField.setForeground(Color.GRAY);
+
+        lageranzahlField = new JTextField("0");
+        lageranzahlField.setEditable(false);
+        lageranzahlField.setBackground(new Color(230, 230, 230));
+        lageranzahlField.setForeground(Color.GRAY);
+
+        regalanzahlField = new JTextField("0");
+        regalanzahlField.setEditable(false);
+        regalanzahlField.setBackground(new Color(230, 230, 230));
+        regalanzahlField.setForeground(Color.GRAY);
+
         preisField = new JTextField();
         einkaufspreisField = new JTextField();
-        //Nicht bearbeitbar, da neu bestellt und noch nicht verkauft.
-        verkaufszahlenField = new JTextField("0"); verkaufszahlenField.setEditable(false);
+
+        verkaufszahlenField = new JTextField("0");
+        verkaufszahlenField.setEditable(false);
+        verkaufszahlenField.setBackground(new Color(230, 230, 230));
+        verkaufszahlenField.setForeground(Color.GRAY);
+
         einkaufszahlenField = new JTextField();
 
         eingabePanel.add(new JLabel("Produktname:")); eingabePanel.add(nameField);
@@ -66,7 +102,6 @@ public class GeschaeftsfuehrerView {
             produktListModel.addElement(p.getName());
         }
 
-        // Rechtsklick auf Produktliste: Popup anzeigen
         produktListe.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent evt) {
@@ -77,133 +112,120 @@ public class GeschaeftsfuehrerView {
                     Produkt p = datenbank.produktSuchen(name);
                     if (p == null) return;
 
-                    // Popup nur bei Rechtsklick
                     if (SwingUtilities.isLeftMouseButton(evt)) {
-                    	// Felder bei Rechtsklick aktualisieren (für Bearbeiten)
                         nameField.setText(p.getName());
                         ortField.setText(p.getOrt());
-                        lageranzahlField.setText(String.valueOf(p.getLageranzahl()));
-                        regalanzahlField.setText(String.valueOf(p.getRegalanzahl()));
                         preisField.setText(String.valueOf(p.getPreis()));
                         einkaufspreisField.setText(String.valueOf(p.getEinkaufspreis()));
                         verkaufszahlenField.setText(String.valueOf(p.getVerkaufszahlen()));
                         einkaufszahlenField.setText(String.valueOf(p.getEinkaufszahlen()));
-                    }
-                    
-                    if(SwingUtilities.isRightMouseButton(evt)) {
-                    	nameField.setText("");
-                    	ortField.setText("Lager");
-                    	lageranzahlField.setText("0");
-                    	regalanzahlField.setText("0");
-                    	preisField.setText("");
-                    	einkaufspreisField.setText("");
-                    	verkaufszahlenField.setText("0");
-                    	einkaufszahlenField.setText("");
+                        // Lager- und Regalanzahl nur setzen, wenn Felder nicht leer
+                        if (!lageranzahlField.getText().trim().isEmpty()) {
+                            lageranzahlField.setText(String.valueOf(p.getLageranzahl()));
+                        }
+                        if (!regalanzahlField.getText().trim().isEmpty()) {
+                            regalanzahlField.setText(String.valueOf(p.getRegalanzahl()));
+                        }
+                    } else if (SwingUtilities.isRightMouseButton(evt)) {
+                        nameField.setText("");
+                        ortField.setText("Lager");
+                        lageranzahlField.setText("0");
+                        regalanzahlField.setText("0");
+                        preisField.setText("");
+                        einkaufspreisField.setText("");
+                        verkaufszahlenField.setText("0");
+                        einkaufszahlenField.setText("");
+                        produktListe.clearSelection();
                     }
                 }
             }
         });
+
         einfuegenButton = new JButton("Produkt hinzufügen");
         entfernenButton = new JButton("Produkt entfernen");
-        bearbeitenButton = new JButton("Bearbeiten");
+        speichernButton = new JButton("Speichern");
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(einfuegenButton);
         buttonPanel.add(entfernenButton);
-        buttonPanel.add(bearbeitenButton);
+        buttonPanel.add(speichernButton);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
-        einfuegenButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String name = nameField.getText().trim();
-                    if (name.isEmpty()) throw new IllegalArgumentException("Produktname darf nicht leer sein.");
+        einfuegenButton.addActionListener(e -> {
+            try {
+                String name = nameField.getText().trim();
+                if (name.isEmpty()) throw new IllegalArgumentException("Produktname darf nicht leer sein.");
 
-                    double preis = Double.parseDouble(preisField.getText().trim());
-                    double einkaufspreis = Double.parseDouble(einkaufspreisField.getText().trim());
-                    int einkaufszahlen = Integer.parseInt(einkaufszahlenField.getText().trim());
+                double preis = Double.parseDouble(preisField.getText().trim());
+                double einkaufspreis = Double.parseDouble(einkaufspreisField.getText().trim());
+                int einkaufszahlen = Integer.parseInt(einkaufszahlenField.getText().trim());
+                String ort = ortField.getText().trim();
 
-                    String ort = ortField.getText().trim();
-                    int regalanzahl = parseOrDefault(regalanzahlField.getText(), 0);
-                    int verkaufszahlen = parseOrDefault(verkaufszahlenField.getText(), 0);
-                    int lageranzahl = einkaufszahlen;
+                int lageranzahl = 0;
+                int regalanzahl = 0;
+                int verkaufszahlen = 0;
 
-                    Produkt vorhanden = datenbank.produktSuchen(name);
-                    if (vorhanden != null) {
-                        vorhanden.setOrt(ort);
-                        vorhanden.setLageranzahl(lageranzahl);
-                        vorhanden.setRegalanzahl(regalanzahl);
-                        vorhanden.setPreis(preis);
-                        vorhanden.setEinkaufspreis(einkaufspreis);
-                        vorhanden.setVerkaufszahlen(verkaufszahlen);
-                        vorhanden.setEinkaufszahlen(einkaufszahlen);
-                        JOptionPane.showMessageDialog(frame, "Produkt aktualisiert.", "Update", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        geschaeftsfuehrer.produktEinfuegen(lageranzahl, regalanzahl, preis, einkaufspreis, name, ort, verkaufszahlen, einkaufszahlen);
-                        produktListModel.addElement(name);
-                        JOptionPane.showMessageDialog(frame, "Neues Produkt hinzugefügt!", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                geschaeftsfuehrer.produktEinfuegen(lageranzahl, regalanzahl, preis, einkaufspreis, name, ort, verkaufszahlen, einkaufszahlen);
+                produktListModel.addElement(name);
+                ProduktSpeicher.speichern(datenbank.produkteAusgeben());
 
-                    nameField.setText("");
-                    preisField.setText("");
-                    einkaufspreisField.setText("");
-                    einkaufszahlenField.setText("");
-                    lageranzahlField.setText("0");
+                nameField.setText("");
+                preisField.setText("");
+                einkaufspreisField.setText("");
+                einkaufszahlenField.setText("");
+                lageranzahlField.setText("0");
 
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(frame, "Bitte gültige Zahlen eingeben. '.' anstatt ','", "Fehler", JOptionPane.ERROR_MESSAGE);
-                } catch (IllegalArgumentException ex) {
-                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(frame, "Ein unerwarteter Fehler ist aufgetreten: " + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-                }
+                JOptionPane.showMessageDialog(frame, "Produkt erfolgreich hinzugefügt.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Bitte gültige Zahlen eingeben.", "Fehler", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        entfernenButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String selectedProduct = produktListe.getSelectedValue();
-                    if (selectedProduct == null) {
-                        JOptionPane.showMessageDialog(frame, "Bitte ein Produkt aus der Liste auswählen.", "Fehler", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    geschaeftsfuehrer.produktEntfernen(selectedProduct);
-                    produktListModel.removeElement(selectedProduct);
-                    JOptionPane.showMessageDialog(frame, "Produkt entfernt.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(frame, "Ein unerwarteter Fehler ist aufgetreten: " + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-                }
+        entfernenButton.addActionListener(e -> {
+            String selected = produktListe.getSelectedValue();
+            if (selected == null) {
+                JOptionPane.showMessageDialog(frame, "Bitte ein Produkt auswählen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+            geschaeftsfuehrer.produktEntfernen(selected);
+            produktListModel.removeElement(selected);
+            ProduktSpeicher.speichern(datenbank.produkteAusgeben());
+            JOptionPane.showMessageDialog(frame, "Produkt entfernt.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
         });
-        
-        bearbeitenButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selectedName = produktListe.getSelectedValue();
-                if (selectedName == null) {
-                    JOptionPane.showMessageDialog(frame, "Bitte ein Produkt auswählen.", "Fehler", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
 
-                Produkt p = datenbank.produktSuchen(selectedName);
-                if (p == null) return;
+        speichernButton.addActionListener(e -> {
+            String selectedName = produktListe.getSelectedValue();
+            if (selectedName == null) {
+                JOptionPane.showMessageDialog(frame, "Bitte ein Produkt auswählen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-                try {
-                    p.setOrt(ortField.getText().trim());
-                    p.setPreis(Double.parseDouble(preisField.getText().trim()));
-                    p.setEinkaufspreis(Double.parseDouble(einkaufspreisField.getText().trim()));
-                    p.setEinkaufszahlen(Integer.parseInt(einkaufszahlenField.getText().trim()));
-                    p.setVerkaufszahlen(Integer.parseInt(verkaufszahlenField.getText().trim()));
+            Produkt p = datenbank.produktSuchen(selectedName);
+            if (p == null) return;
+
+            try {
+                p.setName(nameField.getText().trim());
+                p.setOrt(ortField.getText().trim());
+                p.setPreis(Double.parseDouble(preisField.getText().trim()));
+                p.setEinkaufspreis(Double.parseDouble(einkaufspreisField.getText().trim()));
+                p.setVerkaufszahlen(Integer.parseInt(verkaufszahlenField.getText().trim()));
+                p.setEinkaufszahlen(Integer.parseInt(einkaufszahlenField.getText().trim()));
+
+                if (!lageranzahlField.getText().trim().isEmpty()) {
                     p.setLageranzahl(Integer.parseInt(lageranzahlField.getText().trim()));
-                    p.setRegalanzahl(Integer.parseInt(regalanzahlField.getText().trim()));
-
-                    JOptionPane.showMessageDialog(frame, "Produkt aktualisiert.", "Bearbeiten", JOptionPane.INFORMATION_MESSAGE);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(frame, "Ungültige Eingaben – bitte Zahlen prüfen.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
+                if (!regalanzahlField.getText().trim().isEmpty()) {
+                    p.setRegalanzahl(Integer.parseInt(regalanzahlField.getText().trim()));
+                }
+
+                produktListModel.setElementAt(p.getName(), produktListe.getSelectedIndex());
+                ProduktSpeicher.speichern(datenbank.produkteAusgeben());
+
+                JOptionPane.showMessageDialog(frame, "Produkt aktualisiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Ungültige Eingabe. Bitte Werte prüfen.", "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         });
 
