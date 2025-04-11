@@ -1,12 +1,18 @@
 public class Lagermitarbeiter extends Controller {
 	
 	/**
+	 * Beliebtheitsgraph der Produkte
+	 */
+	private Beliebtheitsgraph beliebtheitsgraph;
+	
+	/**
 	 * erstellt einen neuen Lagermitarbeiter
 	 * @param datenbank, auf die der Lagermitarbeiter zugreift
 	 */
-	public Lagermitarbeiter(Datenbank datenbank) {
+	public Lagermitarbeiter(Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
 		
 		this.datenbank = datenbank;
+		this.beliebtheitsgraph = beliebtheitsgraph;
 		
 	}
 	
@@ -69,6 +75,12 @@ public class Lagermitarbeiter extends Controller {
 	public int ausLagerEntfernen(int anzahl, String name) {
 		
 		return datenbank.produktanzahlVeraendern(-anzahl, true, name);
+		
+	}
+	
+	public Produkt[] beliebtheitAusgeben(String name) {
+		
+		return beliebtheitsgraph.beliebtheitAusgeben(name);
 		
 	}
 
