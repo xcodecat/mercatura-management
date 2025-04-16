@@ -1,4 +1,6 @@
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Beliebtheitsgraph {
 	private int[][] graph;
@@ -13,35 +15,33 @@ public class Beliebtheitsgraph {
 		}
 	
 	public void warenkorbHinzufuegen(LinkedList<Produkt> w) {
-		this.warenkorb = w;
-		Produkt temp = warenkorb.removeFirst();
+	    this.warenkorb = w;
 		
-		for(int k = 0; k < warenkorb.size(); k++) {
-			for (int i = 0; i < graph.length; i++) {
-				if(produkte[i].getName() == temp.getName()) {
-					for(int j = 0; j < graph.length; j++) {
-						Produkt temp2 = warenkorb.removeFirst();
-						if(produkte[j].getName() == temp2.getName()) {
-							if(i != j) {
-								graph[i][j]++;
-								graph[j][i]++;
-							}
-						}
-						warenkorb.add(temp2);
-					}
-				}
-			}
-		}
-		
-		if(!warenkorb.isEmpty()) {
-			warenkorbHinzufuegen(warenkorb);
-		} else if (warenkorb.isEmpty()) {
-			ausgeben();
-		}
-		
+	    for (int i = 0; i < warenkorb.size(); i++) {
+	        Produkt temp1 = warenkorb.get(i);
+	        int index1 = indexFinden(temp1.getName());
+	        
+	        for (int j = i + 1; j < warenkorb.size(); j++) {
+	            Produkt temp2 = warenkorb.get(j);
+	            int index2 = indexFinden(temp2.getName());
+	            
+	            graph[index1][index2]++;
+	            graph[index2][index1]++;
+	        }
+	    }
 	}
-	
-	public void ausgeben() {
+
+
+	//linkedList mit beliebten produkten, anzahl produkte variabel, Spalte zweidimensionales Feld durchgehen; höchste vorne niedrigste Hinten
+	public void beliebtheitAusgeben(String name, int anzahl) {
+		if(anzahl >= produkte.length) {
+			System.out.println("Die eingegebene Anzahl ist größer als die Anzahl der Produkte im Markt. Das eigene Produkt wird logischerweise nicht mitgezählt.");
+			System.exit(0);
+		} else if(anzahl == 0) {
+			System.out.println("Es können nicht null Zahlen ausgeben werden.");
+			System.exit(1);
+		}		
+		
 		for (int i = 0; i < graph.length; i++) {
 			for(int j = 0; j < graph.length; j++) {
 				System.out.print(graph[i][j]);
@@ -49,6 +49,47 @@ public class Beliebtheitsgraph {
 			System.out.println();
 		}
 		System.out.println();
+		
+		beliebtheitsListe(name, anzahl);
+	}
+	
+	private void beliebtheitsListe(String name, int anzahl) {
+	    int indexProdukt = indexFinden(name);
+	    
+	    LinkedList<String> ergebnis = new LinkedList<>();
+
+	    // Liste die [index, wert] des Produkts speichern
+	    List<int[]> wertIndexListe = new ArrayList<>();
+
+	    //initiert 
+	    for (int j = 0; j < graph.length; j++) {
+	        if (j != indexProdukt) {
+	            int wert = graph[indexProdukt][j];
+	            wertIndexListe.add(new int[]{j, wert});
+	        }
+	    }
+
+	    // Sortieren nach Wert des Graphens (absteigend)
+	    wertIndexListe.sort((a, b) -> Integer.compare(b[1], a[1]));
+
+	    //gibt die gewünschte Anzahl an Produkten mit der Beliebtheit aus
+	    for (int i = 0; i < anzahl; i++) {
+	        int produktIndex = wertIndexListe.get(i)[0];
+	        int wert = wertIndexListe.get(i)[1];
+	        String produktName = produkte[produktIndex].getName();
+	        ergebnis.add(produktName);
+	        System.out.println(/*(i + 1) + ": " +*/ produktName + " (Beliebtheit: " + wert + ")");
+	    }
+	}
+
+	
+	private int indexFinden(String name) {
+	    for (int i = 0; i < produkte.length; i++) {
+	        if (produkte[i].getName().equals(name)) {
+	            return i;
+	        }
+	    }
+	    return -1;
 	}
 	
 }
