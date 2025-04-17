@@ -24,7 +24,7 @@ public class Datenbank {
 		return produkte;
 		
 	}
-	
+	kk
 	/**
 	 * gibt die Liste aller Produkte als Array aus
 	 * @return Produkt[]
