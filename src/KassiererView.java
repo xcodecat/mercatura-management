@@ -13,12 +13,14 @@ public class KassiererView {
     private JLabel gesamtpreisLabel;
     private Kassierer kassierer;
     private Datenbank datenbank;
+    private Beliebtheitsgraph beliebtheitsgraph;
 
     private LinkedList<WarenkorbEintrag> warenkorb;
 
     public KassiererView(Datenbank datenbank) {
         this.datenbank = datenbank;
-        this.kassierer = new Kassierer(datenbank);
+        this.beliebtheitsgraph = beliebtheitsgraph;
+        this.kassierer = new Kassierer(datenbank, beliebtheitsgraph);
         this.warenkorb = new LinkedList<>();
 
         frame = new JFrame("Kassierer - Verkauf");

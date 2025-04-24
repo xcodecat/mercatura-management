@@ -5,7 +5,7 @@ public class Kassierer extends Controller {
 	private Beliebtheitsgraph beliebtheitsgraph;
 	private LinkedList<WarenkorbEintrag> warenkorb;
 
-	public Kassierer(Datenbank datenbank) {
+	public Kassierer(Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
 		this.datenbank = datenbank;
 		this.warenkorb = new LinkedList<>();
 		this.beliebtheitsgraph = new Beliebtheitsgraph(datenbank);
