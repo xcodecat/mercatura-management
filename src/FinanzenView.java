@@ -85,6 +85,8 @@ public class FinanzenView {
     /**
      * Methode zum Aktualisieren der Ansicht mit den neuesten Finanzdaten.
      */
+
+    //Test
     private void updateView() {
         double gesamt = geschaeftsfuehrer.gesamtUmsatz();
         double gestern = geschaeftsfuehrer.finanzenGestern();
