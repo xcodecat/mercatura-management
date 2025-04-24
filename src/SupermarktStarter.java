@@ -7,7 +7,7 @@ public class SupermarktStarter {
 	    new Kassierer(datenbank, beliebtheitsgraph);
 	    new LagermitarbeiterView(datenbank, beliebtheitsgraph);
 	    new KundeView(datenbank);
-	    new GeschaeftsfuehrerView(datenbank);
+	    new ProduktverwaltungsView(datenbank);
 	        
 	}
 
