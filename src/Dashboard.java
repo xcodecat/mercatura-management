@@ -7,6 +7,7 @@ public class Dashboard {
         // Erstellen einer Instanz der Datenbank
         Datenbank datenbank = new Datenbank();
 
+        Beliebtheitsgraph beliebtheitsgraph = new Beliebtheitsgraph(datenbank);
         // Erstellen einer Instanz des Geschäftsführers mit der Datenbank
         Geschaeftsfuehrer geschaeftsfuehrer = new Geschaeftsfuehrer(datenbank);
 
@@ -31,7 +32,7 @@ public class Dashboard {
 
         // Hinzufügen von ActionListenern zu den Buttons, um die entsprechenden Views zu öffnen
         btnKassierer.addActionListener(e -> new KassiererView(datenbank));
-        btnLager.addActionListener(e -> new LagermitarbeiterView(datenbank));
+        btnLager.addActionListener(e -> new LagermitarbeiterView(datenbank, beliebtheitsgraph));
         btnKunde.addActionListener(e -> new KundeView(datenbank));
         btnVerwaltung.addActionListener(e -> new ProduktverwaltungsView(datenbank));
         btnFinanzen.addActionListener(e -> new FinanzenView(geschaeftsfuehrer));
