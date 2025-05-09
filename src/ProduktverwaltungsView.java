@@ -6,7 +6,7 @@ import java.awt.event.*;
  * GUI-Oberfläche für den Geschäftsführer zur Verwaltung von Produkten.
  * Produkte können hinzugefügt, entfernt, angezeigt und bearbeitet werden.
  */
-public class GeschaeftsfuehrerView {
+public class ProduktverwaltungsView {
 
     /** Hauptfenster der Anwendung */
     private JFrame frame;
@@ -24,29 +24,15 @@ public class GeschaeftsfuehrerView {
     private Datenbank datenbank;
 
     /**
-     * Hilfsmethode: Parsen eines Strings in eine Ganzzahl, oder Default-Wert zurückgeben.
-     * @param text Text, der geparst werden soll
-     * @param defaultValue Standardwert, falls Parsing fehlschlägt
-     * @return Integer-Wert oder defaultValue
-     */
-//    private int parseOrDefault(String text, int defaultValue) {
-//        try {
-//            return text.trim().isEmpty() ? defaultValue : Integer.parseInt(text.trim());
-//        } catch (NumberFormatException e) {
-//            return defaultValue;
-//        }
-//    }
-
-    /**
      * Konstruktor: Erstellt die grafische Oberfläche und initialisiert alle Komponenten.
      * @param datenbank Gemeinsame Produkt-Datenbank
      */
-    public GeschaeftsfuehrerView(Datenbank datenbank) {
+    public ProduktverwaltungsView(Datenbank datenbank) {
         this.datenbank = datenbank;
         this.geschaeftsfuehrer = new Geschaeftsfuehrer(datenbank);
 
         frame = new JFrame("Produktverwaltung");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(700, 600);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
@@ -119,7 +105,6 @@ public class GeschaeftsfuehrerView {
                         einkaufspreisField.setText(String.valueOf(p.getEinkaufspreis()));
                         verkaufszahlenField.setText(String.valueOf(p.getVerkaufszahlen()));
                         einkaufszahlenField.setText(String.valueOf(p.getEinkaufszahlen()));
-                        // Lager- und Regalanzahl nur setzen, wenn Felder nicht leer
                         if (!lageranzahlField.getText().trim().isEmpty()) {
                             lageranzahlField.setText(String.valueOf(p.getLageranzahl()));
                         }
@@ -161,18 +146,21 @@ public class GeschaeftsfuehrerView {
                 int einkaufszahlen = Integer.parseInt(einkaufszahlenField.getText().trim());
                 String ort = ortField.getText().trim();
 
+                //evtl. gleich einkaufszahl setzen?
+                // int lageranzahl = einkaufszahlen;
                 int lageranzahl = 0;
                 int regalanzahl = 0;
                 int verkaufszahlen = 0;
 
                 geschaeftsfuehrer.produktEinfuegen(lageranzahl, regalanzahl, preis, einkaufspreis, name, ort, verkaufszahlen, einkaufszahlen);
                 produktListModel.addElement(name);
-                ProduktSpeicher.speichern(datenbank.produkteAusgeben());
+                datenbank.produkteSpeichern(); // Speicherung in CSV über Datenbank
 
                 nameField.setText("");
                 preisField.setText("");
                 einkaufspreisField.setText("");
                 einkaufszahlenField.setText("");
+                //evtl. gleich einkaufszahlen setzen?
                 lageranzahlField.setText("0");
 
                 JOptionPane.showMessageDialog(frame, "Produkt erfolgreich hinzugefügt.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
@@ -191,7 +179,7 @@ public class GeschaeftsfuehrerView {
             }
             geschaeftsfuehrer.produktEntfernen(selected);
             produktListModel.removeElement(selected);
-            ProduktSpeicher.speichern(datenbank.produkteAusgeben());
+            datenbank.produkteSpeichern(); // Speicherung nach dem Entfernen
             JOptionPane.showMessageDialog(frame, "Produkt entfernt.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
         });
 
@@ -221,7 +209,7 @@ public class GeschaeftsfuehrerView {
                 }
 
                 produktListModel.setElementAt(p.getName(), produktListe.getSelectedIndex());
-                ProduktSpeicher.speichern(datenbank.produkteAusgeben());
+                datenbank.produkteSpeichern(); // Speicherung nach Bearbeitung
 
                 JOptionPane.showMessageDialog(frame, "Produkt aktualisiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
             } catch (NumberFormatException ex) {

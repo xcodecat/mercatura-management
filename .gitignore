@@ -1,0 +1,25 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+.settings
+out/
+
+# Binärdateien
+/bin/
+*.class
+
+# Logs
+*.log
+
+# OS-spezifisch
+.DS_Store
+Thumbs.db
+
+# Sonstige temporäre Dateien
+*.swp
+*.swo
+*.tmp
+
+# Maven/Gradle optional
+target/
+build/

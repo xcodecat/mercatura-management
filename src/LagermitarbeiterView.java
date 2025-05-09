@@ -26,9 +26,9 @@ public class LagermitarbeiterView {
 	 * erstellt einen neue LagermitarbeiterView
 	 * @param datenbank Datenbank, mit der Lagermitarbeiter arbeitet
 	 */
-	public LagermitarbeiterView(Datenbank datenbank) {
+	public LagermitarbeiterView(Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
 		
-		lma = new Lagermitarbeiter(datenbank);
+		lma = new Lagermitarbeiter(datenbank, beliebtheitsgraph);
 		
 		frame_main = new JFrame("Lagermitarbeiter - Menü");
         frame_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

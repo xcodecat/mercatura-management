@@ -1,28 +1,64 @@
 import java.util.LinkedList;
 
 public class Kassierer extends Controller {
-	
-	private LinkedList<Produkt> warenkorb;
+
 	private Beliebtheitsgraph beliebtheitsgraph;
+	private LinkedList<WarenkorbEintrag> warenkorb;
 
-	public Kassierer (Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
-		this.beliebtheitsgraph = beliebtheitsgraph;
+	public Kassierer(Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
 		this.datenbank = datenbank;
-		warenkorb = new LinkedList<Produkt>();
- 
+		this.warenkorb = new LinkedList<>();
+		this.beliebtheitsgraph = new Beliebtheitsgraph(datenbank);
 	}
 
-	public void kassieren (String name, int anzahl) {
-		
-		datenbank.produktanzahlVeraendernK(anzahl, name);
-		warenkorb.add(datenbank.produktSuchen(name));
+	public void kassieren(String name, int anzahl) {
+		Produkt p = datenbank.produktSuchen(name);
+		if (p != null) {
+			warenkorb.add(new WarenkorbEintrag(p.getName(), anzahl));
+		}
 	}
- 
+
+//	public void warenkorbBeenden() {
+//		for (WarenkorbEintrag eintrag : warenkorb) {
+//			datenbank.produktanzahlVeraendernK(eintrag.anzahl, eintrag.name);
+//		}
+//		datenbank.produkteSpeichern(); // Speichern nach allen Änderungen
+//		warenkorb.clear();
+//	}
+
 	public void warenkorbBeenden() {
-		
-		beliebtheitsgraph.warenkorbHinzufuegen(warenkorb);
+		for (WarenkorbEintrag eintrag : warenkorb) {
+			datenbank.produktanzahlVeraendernK(eintrag.anzahl, eintrag.name);
+		}
+		datenbank.produkteSpeichern();
+
+		// Beliebtheitsgraph aufbauen
+		LinkedList<Produkt> produktWarenkorb = new LinkedList<>();
+		for (WarenkorbEintrag eintrag : warenkorb) {
+			Produkt p = datenbank.produktSuchen(eintrag.name);
+			if (p != null) {
+				produktWarenkorb.add(p);
+			}
+		}
+		beliebtheitsgraph.warenkorbHinzufuegen(produktWarenkorb);
+
+		// Beliebteste 3 Produkte neben dem ersten ausgeben (z. B. basierend auf erstem Produkt im Warenkorb)
+		if (!produktWarenkorb.isEmpty()) {
+			String name = produktWarenkorb.getFirst().getName();
+			System.out.println("Beliebte Produkte zu „" + name + "“:");
+			beliebtheitsgraph.beliebtheitAusgeben(name, 3);
+		}
+
 		warenkorb.clear();
-		
 	}
 
+	private static class WarenkorbEintrag {
+		String name;
+		int anzahl;
+
+		public WarenkorbEintrag(String name, int anzahl) {
+			this.name = name;
+			this.anzahl = anzahl;
+		}
+	}
 }
