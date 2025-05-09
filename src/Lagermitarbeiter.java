@@ -78,10 +78,10 @@ public class Lagermitarbeiter extends Controller {
 		
 	}
 	
-	public Produkt[] beliebtheitAusgeben(String name) {
-		
-		return beliebtheitsgraph.beliebtheitAusgeben(name);
-		
-	}
+//	public Produkt[] beliebtheitAusgeben(String name) {
+//
+//		return beliebtheitsgraph.beliebtheitAusgeben(name);
+//
+//	}
 
 }
