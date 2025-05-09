@@ -1,5 +1,4 @@
-Name;Ort;Lageranzahl;Regalanzahl;Preis;Verkaufszahlen;Einkaufspreis;Einkaufszahlen
-Apfel;A1;45;14;0.99;20;0.5;70
+Apfel;A1;45;13;0.99;20;0.5;70
 Banane;B1;30;15;1.19;15;0.6;55
 Milch;C1;28;10;1.09;8;0.6;40
 Brot;D2;18;4;2.49;5;1.1;25
