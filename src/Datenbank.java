@@ -157,14 +157,14 @@ public class Datenbank {
 			}
 
 		} catch (IOException e) {
-			// Fehler beim Schreiben der Datei – z. B. wenn Datei gesperrt oder nicht vorhanden ist
+			// Fehler beim Schreiben der Datei
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Lädt die Produktdaten aus der Datei "produkte.csv".
-	 * Erwartet eine Kopfzeile mit Spaltennamen in der ersten Zeile.
+	 * Erwartet keine Kopfzeile.
 	 * @return Liste von Produkten aus der Datei
 	 */
 	private LinkedList<Produkt> produkteLaden() {
@@ -176,15 +176,8 @@ public class Datenbank {
 
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String zeile;
-			boolean ersteZeile = true;
 
 			while ((zeile = br.readLine()) != null) {
-				// Erste Zeile überspringen (Kopfzeile mit Spaltennamen)
-				if (ersteZeile) {
-					ersteZeile = false;
-					continue;
-				}
-
 				// Spalten anhand des Trennzeichens (;) aufteilen
 				String[] teile = zeile.split(";");
 
@@ -252,7 +245,7 @@ public class Datenbank {
 
 			// Für jeden Tagesumsatz ...
 			for (Double betrag : tage) {
-				// Schreibe den Betrag in die Datei (z. B. 12.99)
+				// Schreibe den Betrag in die Datei (z.B. 12.99)
 				bw.write(String.valueOf(betrag));
 				bw.newLine(); // neue Zeile für nächsten Wert
 			}
