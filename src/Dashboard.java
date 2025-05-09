@@ -3,7 +3,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Dashboard {
-    public static void main(String[] args) {
+    public Dashboard() {
         // Erstellen einer Instanz der Datenbank
         Datenbank datenbank = new Datenbank();
 
