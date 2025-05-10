@@ -45,7 +45,7 @@ Milch;C1;28;10;1.09;8;0.6;40
 
 2. Abhängigkeiten installieren (falls erforderlich).
 
-3. `Dashboard.java` starten
+3. `SupermarktStarter.java` starten
 
 ## Projektstruktur
 
