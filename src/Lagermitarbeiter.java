@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class Lagermitarbeiter extends Controller {
 	
 	/**
@@ -77,11 +79,30 @@ public class Lagermitarbeiter extends Controller {
 		return datenbank.produktanzahlVeraendern(-anzahl, true, name);
 		
 	}
-	
-//	public Produkt[] beliebtheitAusgeben(String name) {
-//
-//		return beliebtheitsgraph.beliebtheitAusgeben(name);
-//
-//	}
+	/**
+	 * gibt für ein Produkt anhand des Beliebheitsgraphs den freien Ort aus, an dem das Produkt steht,
+	 * dass am häufigsten mit dem eingegebenen Produkt gekauft wird
+	 * @param name Name des einzuräumenden Produkts
+	 * @return Name des besten Ortes
+	 */
+	public String beliebtheitAusgeben(String name) {
+		
+		LinkedList<String> temp = beliebtheitsgraph.beliebtheitAusgeben(name, 5);
+		
+		for(int i = 0; i < 5;  i++) {	
+			
+			String temport = datenbank.getProduktort(temp.get(i));
+			
+			if(datenbank.ortChecken(temport) == true) {
+			
+				return temport;
+		
+			}
+			
+		}
+		
+		return null;
+		
+	}
 
 }

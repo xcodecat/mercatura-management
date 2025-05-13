@@ -33,55 +33,39 @@ public class Beliebtheitsgraph {
 
 
 	//linkedList mit beliebten produkten, anzahl produkte variabel, Spalte zweidimensionales Feld durchgehen; höchste vorne niedrigste Hinten
-	public void beliebtheitAusgeben(String name, int anzahl) {
-		if(anzahl >= produkte.length) {
-			System.out.println("Die eingegebene Anzahl ist größer als die Anzahl der Produkte im Markt. Das eigene Produkt wird logischerweise nicht mitgezählt.");
-			System.exit(0);
-		} else if(anzahl == 0) {
-			System.out.println("Es können nicht null Zahlen ausgeben werden.");
-			System.exit(1);
-		}		
+	public LinkedList<String> beliebtheitAusgeben(String name, int anzahl) {
 		
-		for (int i = 0; i < graph.length; i++) {
-			for(int j = 0; j < graph.length; j++) {
-				System.out.print(graph[i][j]);
+		int indexProdukt = indexFinden(name);
+		    
+		LinkedList<String> ergebnis = new LinkedList<>();
+		// Liste die [index, wert] des Produkts speichern
+		ArrayList<int[]> wertIndexListe = new ArrayList<>();
+
+		//initiert 
+		for(int j = 0; j < graph.length; j++) {
+			if(j != indexProdukt) {
+				int wert = graph[indexProdukt][j];
+				int[] wertIndex = new int[2];
+				wertIndex[0] = j;
+				wertIndex[1] = wert;
+		        wertIndexListe.add(wertIndex);
 			}
-			System.out.println();
 		}
-		System.out.println();
+
+		// Sortieren nach Wert des Graphens (absteigend)
+		wertIndexListe.sort((a, b) -> Integer.compare(b[1], a[1]));
+
+		//gibt die gewünschte Anzahl an Produkten mit der Beliebtheit aus
+		for (int i = 0; i < anzahl; i++) {
+			int produktIndex = wertIndexListe.get(i)[0];
+		    String produktName = produkte[produktIndex].getName();
+		    ergebnis.addLast(produktName);
+		    System.out.println(/*(i + 1) + ": " +*/ produktName + " (Beliebtheit: " + wertIndexListe.get(i)[1] + ")");
+		}
 		
-		beliebtheitsListe(name, anzahl);
+		return ergebnis;
+		   
 	}
-	
-	private void beliebtheitsListe(String name, int anzahl) {
-	    int indexProdukt = indexFinden(name);
-	    
-	    LinkedList<String> ergebnis = new LinkedList<>();
-
-	    // Liste die [index, wert] des Produkts speichern
-	    List<int[]> wertIndexListe = new ArrayList<>();
-
-	    //initiert 
-	    for (int j = 0; j < graph.length; j++) {
-	        if (j != indexProdukt) {
-	            int wert = graph[indexProdukt][j];
-	            wertIndexListe.add(new int[]{j, wert});
-	        }
-	    }
-
-	    // Sortieren nach Wert des Graphens (absteigend)
-	    wertIndexListe.sort((a, b) -> Integer.compare(b[1], a[1]));
-
-	    //gibt die gewünschte Anzahl an Produkten mit der Beliebtheit aus
-	    for (int i = 0; i < anzahl; i++) {
-	        int produktIndex = wertIndexListe.get(i)[0];
-	        int wert = wertIndexListe.get(i)[1];
-	        String produktName = produkte[produktIndex].getName();
-	        ergebnis.add(produktName);
-	        System.out.println(/*(i + 1) + ": " +*/ produktName + " (Beliebtheit: " + wert + ")");
-	    }
-	}
-
 	
 	private int indexFinden(String name) {
 	    for (int i = 0; i < produkte.length; i++) {
