@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 /**
@@ -211,6 +212,7 @@ public class Datenbank {
      * Jedes Produkt wird als eine Zeile mit Semikolon-getrennten Werten geschrieben.
      */
     public void produkteSpeichern() {
+        produkte.sort(Comparator.comparing(Produkt::getName, String.CASE_INSENSITIVE_ORDER));
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("produkte.csv"))) {
 
             // Iteriere über alle Produkte in der Liste

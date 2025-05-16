@@ -13,6 +13,7 @@ Butter;E3;11;4;2.19;3;1.4;18
 Butterkeks;E10;18;7;1.49;2;0.8;18
 Cashews;D10;10;4;2.99;2;1.6;10
 Chili;C7;12;4;1.59;1;0.8;12
+Chillisalz;Lager;0;0;1.0;0;0.65;10
 Cola;B11;25;9;1.29;3;0.6;25
 Cornflakes;B5;25;10;2.49;3;1.2;25
 Dattel;Lager;6;0;3.49;0;1.8;6
@@ -33,12 +34,12 @@ Joghurt;C2;20;1;0.69;6;0.3;30
 Kaffee;D11;20;8;4.99;3;2.5;20
 Kakao;F10;16;6;1.99;2;1.0;16
 Karotte;Lager;15;0;0.89;0;0.4;15
-Käse;E2;7;3;3.79;2;2.0;12
-Kiwi;F3;10;4;0.89;1;0.5;10
 Kirsche;E6;8;3;4.49;1;2.5;8
+Kiwi;F3;10;4;0.89;1;0.5;10
 Knoblauch;Lager;12;0;0.59;0;0.3;12
 Kohlrabi;Lager;10;0;0.99;0;0.4;10
 Kräuter der Provence;D7;10;3;1.99;1;1.0;10
+Käse;E2;7;3;3.79;2;2.0;12
 Kürbis;Lager;4;0;2.49;0;1.2;4
 Limette;Lager;10;0;0.49;0;0.2;10
 Lorbeerblatt;C8;5;2;0.99;0;0.5;5
@@ -64,7 +65,7 @@ Paprikapulver;B6;14;5;1.39;2;0.7;14
 Petersilie;Lager;5;0;0.99;0;0.2;5
 Pfeffer;A6;15;6;1.19;2;0.6;15
 Pfirsich;E5;8;3;1.59;1;0.8;9
-Pflaume;C4;12;4;1.49;1;0.8;12
+Pflaume;C4;12;3;1.49;1;0.8;12
 Porree;Lager;6;0;1.29;0;0.7;6
 Quark;F2;14;5;1.19;2;0.6;13
 Radieschen;Lager;8;0;0.89;0;0.3;8
@@ -81,7 +82,7 @@ Studentenfutter;F9;13;3;2.79;2;1.4;13
 Tee;E12;18;7;2.99;2;1.5;18
 Thymian;E8;8;2;0.99;1;0.5;8
 Tomate;Lager;18;0;0.79;0;0.35;18
-Trauben;F1;18;7;2.99;4;1.7;28
+Trauben;F1;18;2;2.99;4;1.7;28
 Vanillezucker;D8;10;4;0.49;0;0.2;10
 Vollmilchschokolade;A9;20;8;1.59;2;0.9;20
 Wassermelone;Lager;3;0;3.99;0;2.0;3
