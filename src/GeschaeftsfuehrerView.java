@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+//GeschäftsführerView
 public class GeschaeftsfuehrerView {
     public GeschaeftsfuehrerView() {
         Datenbank datenbank = new Datenbank();

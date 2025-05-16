@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 
+//Emojis weggemacht
 /**
  * GUI-Oberfläche zur Verwaltung der Finanzen des Supermarkts.
  * Zeigt den Gesamtumsatz, den Umsatz des Vortages, den durchschnittlichen Umsatz,
