@@ -8,12 +8,22 @@ public class Beliebtheitsgraph {
 	//private Datenbank datenbank;
 	private LinkedList<Produkt> warenkorb;
 
+	/**
+	 * erstellt eine neuen Beliebtheitsgraph
+	 * es holt sich den Array der Produkte und speichert diesen
+	 * erstellt den Graph als zweidimensionales Feld 
+	 * @param datenbank
+	 */
 	public Beliebtheitsgraph(Datenbank datenbank) {
 		//this.datenbank = datenbank;
 		produkte = datenbank.arrayAusgeben();
 		graph = new int[produkte.length][produkte.length];
 		}
 	
+	/**
+	 * fügt den neuen Warenkorb in den Beliebtsheitsgraph ein
+	 * @param warenkorb		Warenkorb eines Kunden
+	 */
 	public void warenkorbHinzufuegen(LinkedList<Produkt> w) {
 	    this.warenkorb = w;
 		
@@ -32,7 +42,12 @@ public class Beliebtheitsgraph {
 	}
 
 
-	//linkedList mit beliebten produkten, anzahl produkte variabel, Spalte zweidimensionales Feld durchgehen; höchste vorne niedrigste Hinten
+	/**
+	 * gibt für ein Produkt eine Liste von Produkten zurück die mit dem Produkt oft zusammen gekauft wurden
+	 * @param name		Name des Produkts HILFE
+	 * @param anzahl	Anzahl,wie viele Produkte ausgegeben werden sollen
+	 * @return Liste der Produkte
+	 */
 	public LinkedList<String> beliebtheitAusgeben(String name, int anzahl) {
 		
 		int indexProdukt = indexFinden(name);
@@ -67,6 +82,12 @@ public class Beliebtheitsgraph {
 		   
 	}
 	
+	/**
+	 * findet den Index eines bestimmten Produkts
+	 * @param name
+	 * @return Index, wenn es das Produkt gibt 
+	 * wenn -1 dann gibt es dieses Produkt nicht
+	 */
 	private int indexFinden(String name) {
 	    for (int i = 0; i < produkte.length; i++) {
 	        if (produkte[i].getName().equals(name)) {
