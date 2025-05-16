@@ -5,6 +5,7 @@ public class Geschaeftsfuehrer extends Controller {
 	private LinkedList<Double> tage; // Umsatzverlauf pro Tag
 	private double umsatzGestern;
 	protected Datenbank datenbank;
+	private boolean tagBeendet = false; // wurde der Tag bereits beendet?
 
 	public Geschaeftsfuehrer(Datenbank datenbank) {
 		this.datenbank = datenbank;
@@ -31,6 +32,8 @@ public class Geschaeftsfuehrer extends Controller {
 	 * @return Umsatz des Tages
 	 */
 	public double tagBeenden() {
+		if (tagBeendet) return -1;
+
 		double heutigerUmsatz = datenbank.getUmsatz();
 		double tagesUmsatz = heutigerUmsatz - umsatzGestern;
 		umsatzGestern = heutigerUmsatz;
@@ -38,7 +41,16 @@ public class Geschaeftsfuehrer extends Controller {
 		datenbank.tagAbschliessen();            // Umsatz in CSV speichern
 		this.tage = datenbank.finanzenAusgeben(); // CSV neu laden
 
+		tagBeendet = true;
 		return tagesUmsatz;
+	}
+
+	public void neuerTagStartet() {
+		tagBeendet = false;
+	}
+
+	public boolean istTagBeendet() {
+		return tagBeendet;
 	}
 
 	/**

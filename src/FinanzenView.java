@@ -72,10 +72,14 @@ public class FinanzenView {
         tagBeendenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Umsatz für den aktuellen Tag berechnen und anzeigen
                 double umsatzHeute = geschaeftsfuehrer.tagBeenden();
-                JOptionPane.showMessageDialog(frame, "Umsatz für heute: " + umsatzHeute + " €", "Tag abgeschlossen", JOptionPane.INFORMATION_MESSAGE);
-                updateView(); // Aktualisieren der Ansicht
+                if (umsatzHeute == -1) {
+                    JOptionPane.showMessageDialog(frame, "Der Tag wurde bereits beendet.", "Fehler", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                JOptionPane.showMessageDialog(frame, "Umsatz für heute: " + String.format("%.2f €", umsatzHeute), "Tag abgeschlossen", JOptionPane.INFORMATION_MESSAGE);
+                tagBeendenButton.setEnabled(false);
+                updateView();
             }
         });
 
@@ -104,5 +108,7 @@ public class FinanzenView {
         for (int i = 0; i < verlauf.size(); i++) {
             verlaufTextArea.append("Tag " + (i + 1) + ": " + String.format("%.2f €", verlauf.get(i)) + "\n");
         }
+
+        tagBeendenButton.setEnabled(!geschaeftsfuehrer.istTagBeendet());
     }
 }
