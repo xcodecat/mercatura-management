@@ -42,12 +42,12 @@ public class Kassierer extends Controller {
 		}
 		beliebtheitsgraph.warenkorbHinzufuegen(produktWarenkorb);
 
-		// Beliebteste 3 Produkte neben dem ersten ausgeben (z. B. basierend auf erstem Produkt im Warenkorb)
-		if (!produktWarenkorb.isEmpty()) {
-			String name = produktWarenkorb.getFirst().getName();
-			System.out.println("Beliebte Produkte zu „" + name + "“:");
-			beliebtheitsgraph.beliebtheitAusgeben(name, 3);
-		}
+//		// Beliebteste 3 Produkte neben dem ersten ausgeben (z.B. basierend auf erstem Produkt im Warenkorb)
+//		if (!produktWarenkorb.isEmpty()) {
+//			String name = produktWarenkorb.getFirst().getName();
+//			//System.out.println("Beliebte Produkte zu „" + name + "“:");
+//			beliebtheitsgraph.beliebtheitAusgeben(name, 3);
+//		}
 
 		warenkorb.clear();
 	}
