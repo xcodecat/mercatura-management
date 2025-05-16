@@ -35,7 +35,7 @@ public class Geschaeftsfuehrer extends Controller {
 		if (tagBeendet) return -1;
 
 		double heutigerUmsatz = datenbank.getUmsatz();
-		double tagesUmsatz = heutigerUmsatz - umsatzGestern;
+		double tagesUmsatz = runde(heutigerUmsatz - umsatzGestern);
 		umsatzGestern = heutigerUmsatz;
 
 		datenbank.tagAbschliessen();            // Umsatz in CSV speichern
@@ -90,5 +90,9 @@ public class Geschaeftsfuehrer extends Controller {
 	 */
 	public int anzahlTage() {
 		return tage.size();
+	}
+
+	private double runde(double wert) {
+		return Math.round(wert * 100.0) / 100.0;
 	}
 }
