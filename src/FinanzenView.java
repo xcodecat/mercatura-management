@@ -85,8 +85,6 @@ public class FinanzenView {
     /**
      * Methode zum Aktualisieren der Ansicht mit den neuesten Finanzdaten.
      */
-
-    //Test
     private void updateView() {
         double gesamt = geschaeftsfuehrer.gesamtUmsatz();
         double gestern = geschaeftsfuehrer.finanzenGestern();
@@ -95,10 +93,10 @@ public class FinanzenView {
         LinkedList<Double> verlauf = geschaeftsfuehrer.finanzenAusgeben();
 
         // Aktualisieren der Labels mit den neuesten Werten
-        gesamtUmsatzLabel.setText("📊 Gesamtumsatz: " + String.format("%.2f €", gesamt));
-        gesternLabel.setText("📈 Umsatz gestern: " + String.format("%.2f €", gestern));
-        durchschnittLabel.setText("📉 Durchschnitt: " + String.format("%.2f €", schnitt));
-        tageLabel.setText("🗓 Anzahl abgeschlossener Tage: " + tage);
+        gesamtUmsatzLabel.setText("Gesamtumsatz: " + String.format("%.2f €", gesamt));
+        gesternLabel.setText("Umsatz gestern: " + String.format("%.2f €", gestern));
+        durchschnittLabel.setText("Durchschnitt: " + String.format("%.2f €", schnitt));
+        tageLabel.setText("Anzahl abgeschlossener Tage: " + tage);
 
         // Textbereich mit dem Tagesverlauf befüllen
         verlaufTextArea.setText("");
