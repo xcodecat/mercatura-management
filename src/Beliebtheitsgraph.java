@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Beliebtheitsgraph {
 	private int[][] graph;
 	private Produkt[] produkte;
-	//private Datenbank datenbank;
+	private Datenbank datenbank;
 	private LinkedList<Produkt> warenkorb;
 
 	/**
@@ -15,7 +15,7 @@ public class Beliebtheitsgraph {
 	 * @param datenbank
 	 */
 	public Beliebtheitsgraph(Datenbank datenbank) {
-		//this.datenbank = datenbank;
+		this.datenbank = datenbank;
 		produkte = datenbank.arrayAusgeben();
 		graph = new int[produkte.length][produkte.length];
 		}
@@ -46,9 +46,16 @@ public class Beliebtheitsgraph {
 	 * gibt für ein Produkt eine Liste von Produkten zurück die mit dem Produkt oft zusammen gekauft wurden
 	 * @param name		Name des Produkts HILFE
 	 * @param anzahl	Anzahl,wie viele Produkte ausgegeben werden sollen
-	 * @return Liste der Produkte
+	 * @return 	Liste der Produkte
+	 * 			null, wenn Name nicht vorhanden
 	 */
 	public LinkedList<String> beliebtheitAusgeben(String name, int anzahl) {
+		
+		if(datenbank.produktSuchen(name) == null) {
+			
+			return null;
+			
+		}
 		
 		int indexProdukt = indexFinden(name);
 		    

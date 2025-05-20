@@ -8,15 +8,15 @@ public class LagermitarbeiterView {
 	/**
 	 * Frames der Grafikoberfläche des LagermitarbeitersViews
 	 */
-	private JFrame frame_main, frame_ort, frame_lager, frame_regal;
+	private JFrame frame_main, frame_ort, frame_lager, frame_regal, frame_bg;
 	/**
 	 * Buttons der Grafikoberfläche des LagermitarbeitersViews
 	 */
-	private JButton ort, regal, lager, ort_ver, regal_hinzu, regal_ent, lager_hinzu, lager_ent;
+	private JButton ort, regal, lager, bg, ort_ver, regal_hinzu, regal_ent, lager_hinzu, lager_ent, bg_suchen;
 	/**
 	 * Textfelder der Grafikoberfläche des LagermitarbeitersViews
 	 */
-	private JTextField ort_ort, ort_name, regal_name, regal_anzahl, lager_name, lager_anzahl;
+	private JTextField ort_ort, ort_name, regal_name, regal_anzahl, lager_name, lager_anzahl, bg_name, bg_ergebnis;
 	/**
 	 * Lagermitarbeiter(Controller), an den Inputs weitergegeben werden
 	 */
@@ -33,17 +33,19 @@ public class LagermitarbeiterView {
 		frame_main = new JFrame("Lagermitarbeiter - Menü");
         frame_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame_main.setSize(300, 200);
-        frame_main.setLayout(new GridLayout(3, 1));
+        frame_main.setLayout(new GridLayout(4, 1));
         frame_main.setResizable(false);
         frame_main.setLocation(700, 500);
         
         ort = new JButton("Ort verändern");
         regal = new JButton("Regalanzahl verändern");
         lager = new JButton("Lageranzahl verändern");
+        bg = new JButton("Beliebheitsgraph");
         
         frame_main.add(ort);
         frame_main.add(regal);
         frame_main.add(lager);
+        frame_main.add(bg);
         
         ort.addActionListener(new ActionListener() {
         	
@@ -84,6 +86,20 @@ public class LagermitarbeiterView {
 				frame_lager.setVisible(true);
 				
 			}
+        	
+        });
+        
+        bg.addActionListener(new ActionListener() {
+        	
+        	/**
+        	 * ruft Frame des Beliebheitsgraphen auf
+        	 * @param e
+        	 */
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		frame_bg.setVisible(true);     		      	        	
+        	
+        	}
         	
         });
         
@@ -364,6 +380,52 @@ public class LagermitarbeiterView {
         });        
         
         frame_lager.setVisible(false);
+        
+        
+        
+        frame_bg = new JFrame("Lagermitarbeiter - Beliebheitsgraph");
+        frame_bg.setSize(400, 200);
+        frame_bg.setLayout(new GridLayout(3, 2));
+        frame_bg.setResizable(false);
+        frame_bg.setLocation(700, 500);
+        
+        frame_bg.add(new JLabel("Name:"));
+        bg_name = new JTextField();
+        frame_bg.add(bg_name);
+        frame_bg.add(new JLabel());
+        bg_suchen = new JButton("Regalplatz finden");
+        frame_bg.add(bg_suchen);
+        frame_bg.add(new JLabel("Ergebnis:"));
+        bg_ergebnis = new JTextField();
+        frame_bg.add(bg_ergebnis);
+        
+        bg_suchen.addActionListener(new ActionListener() {
+			
+        	/**
+        	 * sucht nach dem Ort für das eingegebene Produkt, an dem es bei dem Produkt steht, mit dem es
+        	 * am öftesten gekauft wird
+        	 * @param e
+        	 */
+			public void actionPerformed(ActionEvent e) {
+				
+				String name = bg_name.getText().trim();
+				if(lma.beliebtheitAusgeben(name) == null) {
+					
+					JOptionPane.showMessageDialog(frame_bg, "Name nicht vorhanden oder Produktort voll", "Fehler", JOptionPane.ERROR_MESSAGE);
+					
+				} else {					
+				
+					bg_ergebnis.setText(lma.beliebtheitAusgeben(name));
+					
+				}
+				
+				bg_name.setText("");
+				
+			}       
+        	
+        });
+        
+        frame_bg.setVisible(false);
         
         
 	}

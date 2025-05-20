@@ -83,11 +83,18 @@ public class Lagermitarbeiter extends Controller {
 	 * gibt für ein Produkt anhand des Beliebheitsgraphs den freien Ort aus, an dem das Produkt steht,
 	 * dass am häufigsten mit dem eingegebenen Produkt gekauft wird
 	 * @param name Name des einzuräumenden Produkts
-	 * @return Name des besten Ortes
+	 * @return 	Name des besten Ortes
+	 * 			null, wenn Name nicht vorhanden oder Produktort voll
 	 */
 	public String beliebtheitAusgeben(String name) {
 		
 		LinkedList<String> temp = beliebtheitsgraph.beliebtheitAusgeben(name, 5);
+		
+		if(temp == null) {
+			
+			return null;
+			
+		}
 		
 		for(int i = 0; i < 5;  i++) {	
 			
