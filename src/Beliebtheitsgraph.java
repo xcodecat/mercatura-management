@@ -81,8 +81,7 @@ public class Beliebtheitsgraph {
 		for (int i = 0; i < anzahl; i++) {
 			int produktIndex = wertIndexListe.get(i)[0];
 		    String produktName = produkte[produktIndex].getName();
-		    ergebnis.addLast(produktName);
-		    System.out.println(/*(i + 1) + ": " +*/ produktName + " (Beliebtheit: " + wertIndexListe.get(i)[1] + ")");
+		    ergebnis.addFirst(produktName);
 		}
 		
 		return ergebnis;
