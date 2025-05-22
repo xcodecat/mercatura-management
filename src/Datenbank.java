@@ -154,11 +154,13 @@ public class Datenbank {
     }
 
     public Produkt produktSuchen(String name) {
+    	
         for (Produkt p : produkte) {
             if (p.getName().equals(name)) {
                 return p;
             }
         }
+        
         return null;
     }
 
@@ -247,7 +249,7 @@ public class Datenbank {
         File file = new File("produkte.csv");
 
         // Wenn Datei nicht existiert, gib leere Liste zurück
-        if (!file.exists()) return list;
+        if (!file.exists()) {return list;}
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String zeile;

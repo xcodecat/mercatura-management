@@ -3,12 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LagermitarbeiterView {
+public class LagermitarbeiterView extends View {
 	
 	/**
 	 * Frames der Grafikoberfläche des LagermitarbeitersViews
 	 */
-	private JFrame frame_main, frame_ort, frame_lager, frame_regal, frame_bg;
+	private JFrame frame_ort, frame_lager, frame_regal, frame_bg;
 	/**
 	 * Buttons der Grafikoberfläche des LagermitarbeitersViews
 	 */
@@ -30,22 +30,21 @@ public class LagermitarbeiterView {
 		
 		lma = new Lagermitarbeiter(datenbank, beliebtheitsgraph);
 		
-		frame_main = new JFrame("Lagermitarbeiter - Menü");
-        frame_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame_main.setSize(300, 200);
-        frame_main.setLayout(new GridLayout(4, 1));
-        frame_main.setResizable(false);
-        frame_main.setLocation(700, 500);
+		frame = new JFrame("Lagermitarbeiter - Menü");
+        frame.setSize(300, 200);
+        frame.setLayout(new GridLayout(4, 1));
+        frame.setResizable(false);
+        frame.setLocation(700, 500);
         
         ort = new JButton("Ort verändern");
         regal = new JButton("Regalanzahl verändern");
         lager = new JButton("Lageranzahl verändern");
         bg = new JButton("Beliebheitsgraph");
         
-        frame_main.add(ort);
-        frame_main.add(regal);
-        frame_main.add(lager);
-        frame_main.add(bg);
+        frame.add(ort);
+        frame.add(regal);
+        frame.add(lager);
+        frame.add(bg);
         
         ort.addActionListener(new ActionListener() {
         	
@@ -103,7 +102,7 @@ public class LagermitarbeiterView {
         	
         });
         
-        frame_main.setVisible(true);
+        frame.setVisible(true);
         
         
         

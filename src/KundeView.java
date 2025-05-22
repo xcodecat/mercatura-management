@@ -7,21 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class KundeView {
-    private JFrame frame;
+public class KundeView extends View {
     private JTextField suchenField;
     private JButton suchenButton;
     private JList<String> produktListe;
     private DefaultListModel<String> produktListModel;
     private Kunde kunde;
-
-    private int parseOrDefault(String text, int defaultValue) {
-        try {
-            return text.trim().isEmpty() ? defaultValue : Integer.parseInt(text.trim());
-        } catch (NumberFormatException e) {
-            return defaultValue;
-        }
-    }
 
     public KundeView(Datenbank datenbank) {
         this.kunde = new Kunde(datenbank);

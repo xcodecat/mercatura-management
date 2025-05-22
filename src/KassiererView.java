@@ -3,8 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 
-public class KassiererView {
-    private JFrame frame;
+public class KassiererView extends View{
     private DefaultListModel<String> produktListModel;
     private DefaultListModel<String> warenkorbListModel;
     private JList<String> produktListe;
@@ -13,13 +12,11 @@ public class KassiererView {
     private JLabel gesamtpreisLabel;
     private Kassierer kassierer;
     private Datenbank datenbank;
-    private Beliebtheitsgraph beliebtheitsgraph;
 
     private LinkedList<WarenkorbEintrag> warenkorb;
 
-    public KassiererView(Datenbank datenbank) {
+    public KassiererView(Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
         this.datenbank = datenbank;
-        this.beliebtheitsgraph = beliebtheitsgraph;
         this.kassierer = new Kassierer(datenbank, beliebtheitsgraph);
         this.warenkorb = new LinkedList<>();
 
