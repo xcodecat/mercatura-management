@@ -68,7 +68,7 @@ public class Kassierer extends Controller {
 	}
 
 	/**
-	 * Klasse die den Warenkrobeintrag speichert
+	 * Klasse die den Warenkorbeintrag speichert
 	 */
 	private static class WarenkorbEintrag {
 		String name;
