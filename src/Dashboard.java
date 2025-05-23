@@ -27,22 +27,19 @@ public class Dashboard {
         JButton btnKassierer = new JButton("Kassierer");
         JButton btnLager = new JButton("Lagermitarbeiter");
         JButton btnKunde = new JButton("Kunde");
-        JButton btnVerwaltung = new JButton("Produktverwaltung");
-        JButton btnFinanzen = new JButton("Finanzen");
+        JButton btnGeschaeftsfuehrer = new JButton("Geschaeftsfuehrer");
 
         // Hinzufügen von ActionListenern zu den Buttons, um die entsprechenden Views zu öffnen
         btnKassierer.addActionListener(e -> new KassiererView(datenbank, beliebtheitsgraph));
         btnLager.addActionListener(e -> new LagermitarbeiterView(datenbank, beliebtheitsgraph));
         btnKunde.addActionListener(e -> new KundeView(datenbank));
-        btnVerwaltung.addActionListener(e -> new ProduktverwaltungsView(geschaeftsfuehrer));
-        btnFinanzen.addActionListener(e -> new FinanzenView(geschaeftsfuehrer));
+        btnGeschaeftsfuehrer.addActionListener(e -> new GeschaeftsfuehrerView(geschaeftsfuehrer));
 
         // Hinzufügen der Buttons zum Fenster
         frame.add(btnKassierer);
         frame.add(btnLager);
         frame.add(btnKunde);
-        frame.add(btnVerwaltung);
-        frame.add(btnFinanzen);
+        frame.add(btnGeschaeftsfuehrer);
 
         // Fenster sichtbar machen
         frame.setVisible(true);
