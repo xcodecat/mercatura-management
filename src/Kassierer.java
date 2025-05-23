@@ -52,6 +52,14 @@ public class Kassierer extends Controller {
 		warenkorb.clear();
 	}
 
+	public Produkt produktSuchen(String name) {
+		return datenbank.produktSuchen(name);
+	}
+
+	public LinkedList<Produkt> produkteAusgeben() {
+		return datenbank.produkteAusgeben();
+	}
+
 	private static class WarenkorbEintrag {
 		String name;
 		int anzahl;

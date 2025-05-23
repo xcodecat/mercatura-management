@@ -11,12 +11,10 @@ public class KassiererView extends View{
     private JTextField anzahlField;
     private JLabel gesamtpreisLabel;
     private Kassierer kassierer;
-    private Datenbank datenbank;
 
     private LinkedList<WarenkorbEintrag> warenkorb;
 
     public KassiererView(Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
-        this.datenbank = datenbank;
         this.kassierer = new Kassierer(datenbank, beliebtheitsgraph);
         this.warenkorb = new LinkedList<>();
 
@@ -28,7 +26,7 @@ public class KassiererView extends View{
         // Produktliste
         produktListModel = new DefaultListModel<>();
         produktListe = new JList<>(produktListModel);
-        for (Produkt p : datenbank.produkteAusgeben()) {
+        for (Produkt p : kassierer.produkteAusgeben()) {
             produktListModel.addElement(p.getName());
         }
         produktListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -40,7 +38,7 @@ public class KassiererView extends View{
                 int index = produktListe.locationToIndex(evt.getPoint());
                 if (index >= 0) {
                     produktListe.setSelectedIndex(index);
-                    Produkt p = datenbank.produktSuchen(produktListe.getSelectedValue());
+                    Produkt p = kassierer.produktSuchen(produktListe.getSelectedValue());
                     if (SwingUtilities.isRightMouseButton(evt) && p != null) {
                         JOptionPane.showMessageDialog(frame,
                                 "Preis: " + p.getPreis() + " €",
@@ -110,7 +108,7 @@ public class KassiererView extends View{
                 return;
             }
 
-            Produkt produktGefunden = datenbank.produktSuchen(name);
+            Produkt produktGefunden = kassierer.produktSuchen(name);
             if (produktGefunden == null) return;
 
             if (produktGefunden.getRegalanzahl() < anzahl) {
@@ -163,7 +161,7 @@ public class KassiererView extends View{
     private void updateGesamtpreis() {
         double summe = 0.0;
         for (WarenkorbEintrag eintrag : warenkorb) {
-            Produkt p = datenbank.produktSuchen(eintrag.name);
+            Produkt p = kassierer.produktSuchen(eintrag.name);
             if (p != null) {
                 summe += p.getPreis() * eintrag.anzahl;
             }
