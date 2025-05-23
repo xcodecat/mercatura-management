@@ -5,7 +5,7 @@ import java.awt.*;
 public class GeschaeftsfuehrerView {
     public GeschaeftsfuehrerView(Geschaeftsfuehrer geschaeftsfuehrer) {
         JFrame frame = new JFrame("Geschaeftsfuehrer");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(500, 250);
         frame.setLayout(new GridLayout(1, 2));
 
