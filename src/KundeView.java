@@ -20,7 +20,7 @@ public class KundeView extends View {
          * Initialisierung des Frames inclusive Suchfeld, Suchknopf und Produktliste
          */
         frame = new JFrame("Kunde - Produktauswahl");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(700, 600);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
