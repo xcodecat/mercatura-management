@@ -6,10 +6,8 @@ import java.awt.event.*;
  * GUI-Oberfläche für den Geschäftsführer zur Verwaltung von Produkten.
  * Produkte können hinzugefügt, entfernt, angezeigt und bearbeitet werden.
  */
-public class ProduktverwaltungsView {
+public class ProduktverwaltungsView extends View{
 
-    /** Hauptfenster der Anwendung */
-    private JFrame frame;
     /** Eingabefelder für Produktinformationen */
     private JTextField nameField, ortField, lageranzahlField, regalanzahlField, preisField, einkaufspreisField, verkaufszahlenField, einkaufszahlenField;
     /** Buttons zum Hinzufügen, Entfernen und Speichern */
@@ -20,16 +18,13 @@ public class ProduktverwaltungsView {
     private DefaultListModel<String> produktListModel;
     /** Instanz des Geschäftsführers */
     private Geschaeftsfuehrer geschaeftsfuehrer;
-    /** Verweis auf die zentrale Datenbank */
-    private Datenbank datenbank;
 
     /**
      * Konstruktor: Erstellt die grafische Oberfläche und initialisiert alle Komponenten.
      * @param datenbank Gemeinsame Produkt-Datenbank
      */
-    public ProduktverwaltungsView(Datenbank datenbank) {
-        this.datenbank = datenbank;
-        this.geschaeftsfuehrer = new Geschaeftsfuehrer(datenbank);
+    public ProduktverwaltungsView(Geschaeftsfuehrer geschaeftsfuehrer) {
+        this.geschaeftsfuehrer = geschaeftsfuehrer;
 
         frame = new JFrame("Produktverwaltung");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -84,7 +79,7 @@ public class ProduktverwaltungsView {
         scrollPane.setPreferredSize(new Dimension(500, 250));
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        for (Produkt p : datenbank.produkteAusgeben()) {
+        for (Produkt p : geschaeftsfuehrer.produkteAusgeben()) {
             produktListModel.addElement(p.getName());
         }
 
@@ -95,7 +90,7 @@ public class ProduktverwaltungsView {
                 if (index >= 0) {
                     produktListe.setSelectedIndex(index);
                     String name = produktListe.getSelectedValue();
-                    Produkt p = datenbank.produktSuchen(name);
+                    Produkt p = geschaeftsfuehrer.produktSuchen(name);
                     if (p == null) return;
 
                     if (SwingUtilities.isLeftMouseButton(evt)) {
@@ -154,7 +149,7 @@ public class ProduktverwaltungsView {
 
                 geschaeftsfuehrer.produktEinfuegen(lageranzahl, regalanzahl, preis, einkaufspreis, name, ort, verkaufszahlen, einkaufszahlen);
                 produktListModel.addElement(name);
-                datenbank.produkteSpeichern(); // Speicherung in CSV über Datenbank
+                geschaeftsfuehrer.produkteSpeichern(); // Speicherung in CSV über Datenbank
 
                 nameField.setText("");
                 preisField.setText("");
@@ -179,7 +174,7 @@ public class ProduktverwaltungsView {
             }
             geschaeftsfuehrer.produktEntfernen(selected);
             produktListModel.removeElement(selected);
-            datenbank.produkteSpeichern(); // Speicherung nach dem Entfernen
+            geschaeftsfuehrer.produkteSpeichern(); // Speicherung nach dem Entfernen
             JOptionPane.showMessageDialog(frame, "Produkt entfernt.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
         });
 
@@ -190,7 +185,7 @@ public class ProduktverwaltungsView {
                 return;
             }
 
-            Produkt p = datenbank.produktSuchen(selectedName);
+            Produkt p = geschaeftsfuehrer.produktSuchen(selectedName);
             if (p == null) return;
 
             try {
@@ -209,7 +204,7 @@ public class ProduktverwaltungsView {
                 }
 
                 produktListModel.setElementAt(p.getName(), produktListe.getSelectedIndex());
-                datenbank.produkteSpeichern(); // Speicherung nach Bearbeitung
+                geschaeftsfuehrer.produkteSpeichern(); // Speicherung nach Bearbeitung
 
                 JOptionPane.showMessageDialog(frame, "Produkt aktualisiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
             } catch (NumberFormatException ex) {

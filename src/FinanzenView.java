@@ -9,10 +9,8 @@ import java.util.LinkedList;
  * Zeigt den Gesamtumsatz, den Umsatz des Vortages, den durchschnittlichen Umsatz,
  * die Anzahl der abgeschlossenen Tage und den Tagesverlauf der Finanzen an.
  */
-public class FinanzenView {
+public class FinanzenView extends View {
 
-    /** Hauptfenster der Anwendung */
-    private JFrame frame;
 
     /** Labels zur Anzeige der Finanzdaten */
     private JLabel gesamtUmsatzLabel, gesternLabel, durchschnittLabel, tageLabel;

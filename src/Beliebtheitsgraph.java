@@ -74,7 +74,7 @@ public class Beliebtheitsgraph {
 			}
 		}
 
-		// Sortieren nach Wert des Graphens (absteigend)
+		// Sortieren nach Wert des Graphens (aufsteigend)
 		wertIndexListe.sort((a, b) -> Integer.compare(b[1], a[1]));
 
 		//gibt die gewünschte Anzahl an Produkten mit der Beliebtheit aus
