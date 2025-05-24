@@ -28,6 +28,7 @@ public class ProduktverwaltungsView extends View {
         frame.setSize(700, 600);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
 
         JPanel eingabePanel = new JPanel(new GridLayout(8, 2, 5, 5));
         eingabePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

@@ -39,6 +39,7 @@ public class KassiererView extends View {
         frame = new JFrame("Supermarkt Kasse");
         frame.setSize(1100, 650);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout(10, 10));
 
         // === Linke Seite: Produktliste ===
