@@ -30,9 +30,8 @@ public class KassiererView extends View {
      *
      * @param datenbank Gemeinsame Produktdatenbank
      * @param graph     Beliebtheitsgraph zur Auswertung (optional)
-     * @param logo
      */
-    public KassiererView(Datenbank datenbank, Beliebtheitsgraph graph, Image logo) {
+    public KassiererView(Datenbank datenbank, Beliebtheitsgraph graph) {
         this.kassierer = new Kassierer(datenbank, graph);
         this.warenkorb = new LinkedList<>();
 
