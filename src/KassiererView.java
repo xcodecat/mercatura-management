@@ -144,19 +144,44 @@ public class KassiererView extends View {
     }
 
     /**
-     * Fügt ein Produkt aus der Liste dem Warenkorb hinzu.
+     * Fügt das ausgewählte Produkt in der angegebenen Menge dem Warenkorb hinzu.
+     * - Prüft auf gültige Anzahl (muss > 0 sein)
+     * - Prüft, ob genug Bestand im Regal vorhanden ist
+     * - Gibt bei Fehlern eine Rückmeldung
+     * - Fügt nur bei Erfolg zum Warenkorb hinzu
      */
     private void produktHinzufuegen() {
+        // Name des gewählten Produkts ermitteln
         String name = produktListe.getSelectedValue();
         if (name == null) return;
-        int anzahl = parseOrDefault(anzahlField.getText(), 1);
-        Produkt p = kassierer.produktSuchen(name);
-        if (p != null && p.getRegalanzahl() >= anzahl) {
-            kassierer.kassieren(name, anzahl);
-            warenkorb.add(new WarenkorbEintrag(name, anzahl));
-            warenkorbListModel.addElement(name + " × " + anzahl);
-            updateGesamtpreis();
+
+        // Anzahl parsen und prüfen
+        int anzahl = parseOrDefault(anzahlField.getText(), -1);
+        if (anzahl <= 0) {
+            JOptionPane.showMessageDialog(frame, "Bitte eine gültige Anzahl (> 0) eingeben.", "Fehler", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        // Produkt aus der Datenbank suchen
+        Produkt p = kassierer.produktSuchen(name);
+        if (p == null) return;
+
+        // Prüfen, ob ausreichend Bestand vorhanden ist
+        if (p.getRegalanzahl() < anzahl) {
+            JOptionPane.showMessageDialog(frame,
+                    "Nicht genug Bestand im Regal.\nVerfügbar: " + p.getRegalanzahl() + " Stück",
+                    "Nicht genügend Bestand",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Produkt dem Warenkorb hinzufügen
+        kassierer.kassieren(name, anzahl);
+        warenkorb.add(new WarenkorbEintrag(name, anzahl));
+        warenkorbListModel.addElement(name + " × " + anzahl);
+        updateGesamtpreis();
+
+        // Eingabefeld zurücksetzen
         anzahlField.setText("1");
     }
 
