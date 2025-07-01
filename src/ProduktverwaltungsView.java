@@ -25,6 +25,7 @@ public class ProduktverwaltungsView extends View{
      */
     public ProduktverwaltungsView(Geschaeftsfuehrer geschaeftsfuehrer) {
         this.geschaeftsfuehrer = geschaeftsfuehrer;
+        geschaeftsfuehrer.datenbank.viewEinfuegen(this);
 
         frame = new JFrame("Produktverwaltung");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -213,5 +214,14 @@ public class ProduktverwaltungsView extends View{
         });
 
         frame.setVisible(true);
+    }
+    
+    public void update() {
+    	
+    	produktListModel.clear();
+    	for (Produkt p : geschaeftsfuehrer.produkteAusgeben()) {
+            produktListModel.addElement(p.getName());
+        }
+    	
     }
 }

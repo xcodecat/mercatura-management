@@ -6,7 +6,11 @@ import java.util.LinkedList;
  * Zentrale Datenhaltung für Produkte und Finanzen des Supermarkts
  */
 public class Datenbank {
-    /**
+	/**
+	 * Liste aller zu updatenden Views
+	 */
+    private LinkedList<View> views;
+	/**
      * Liste aller Produkte des Supermarkts
      */
     private LinkedList<Produkt> produkte;
@@ -26,6 +30,7 @@ public class Datenbank {
         this.produkte = produkteLaden();
         this.umsatz = 0.0;
         this.tage = finanzenLaden();
+        views = new LinkedList<View>();
     }
 
     public LinkedList<Produkt> produkteAusgeben() {
@@ -43,6 +48,12 @@ public class Datenbank {
             ptemp[i] = produkte.get(i);
         }
         return ptemp;
+    }
+    
+    public void viewEinfuegen(View view) {
+    	
+    	views.add(view);
+    	
     }
 
     /**
@@ -235,6 +246,11 @@ public class Datenbank {
         } catch (IOException e) {
             // Fehler beim Schreiben der Datei
             e.printStackTrace();
+        }
+        for(int i = 0; i < views.size(); i++) {
+        	
+        	views.get(i).update();
+        	
         }
     }
 

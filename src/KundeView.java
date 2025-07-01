@@ -16,6 +16,7 @@ public class KundeView extends View {
 
     public KundeView(Datenbank datenbank) {
         this.kunde = new Kunde(datenbank);
+        datenbank.viewEinfuegen(this);
         /**
          * Initialisierung des Frames inclusive Suchfeld, Suchknopf und Produktliste
          */
@@ -112,5 +113,14 @@ public class KundeView extends View {
         	}
         });
         frame.setVisible(true);
+    }
+    
+    public void update() {
+    	
+    	produktListModel.clear();
+    	for (Produkt p : kunde.produkteAusgeben()) {
+            produktListModel.addElement(p.getName());
+        }
+    	
     }
 }

@@ -109,4 +109,7 @@ public class FinanzenView extends View {
 
         tagBeendenButton.setEnabled(!geschaeftsfuehrer.istTagBeendet());
     }
+
+	protected void update() {		
+	}
 }

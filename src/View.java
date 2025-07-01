@@ -7,4 +7,6 @@ public abstract class View {
 	
 	public View(){}
 
+	protected abstract void update();
+
 }

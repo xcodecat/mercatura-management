@@ -429,4 +429,7 @@ public class LagermitarbeiterView extends View {
         
 	}
 
+	protected void update() {		
+	}
+
 }

@@ -17,6 +17,7 @@ public class KassiererView extends View{
     public KassiererView(Datenbank datenbank, Beliebtheitsgraph beliebtheitsgraph) {
         this.kassierer = new Kassierer(datenbank, beliebtheitsgraph);
         this.warenkorb = new LinkedList<>();
+        datenbank.viewEinfuegen(this);
 
         frame = new JFrame("Kassierer - Verkauf");
         frame.setSize(800, 550);
@@ -177,5 +178,14 @@ public class KassiererView extends View{
             this.name = name;
             this.anzahl = anzahl;
         }
+    }
+    
+    public void update() {
+    	
+    	produktListModel.clear();
+    	for (Produkt p : kassierer.produkteAusgeben()) {
+            produktListModel.addElement(p.getName());
+        }
+    	
     }
 }
