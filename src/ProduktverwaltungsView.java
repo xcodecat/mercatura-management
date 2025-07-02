@@ -1,10 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import java.util.List;
 
@@ -141,14 +137,14 @@ public class ProduktverwaltungsView extends View {
                 int verkaufszahlen = 0;
 
                 geschaeftsfuehrer.produktEinfuegen(lageranzahl, regalanzahl, preis, einkaufspreis, name, ort, verkaufszahlen, einkaufszahlen);
-                produktListeSortiertEinfügen(name);
+                produktListeSortiertEinfuegen(name);
                 geschaeftsfuehrer.produkteSpeichern();
 
                 nameField.setText("");
                 preisField.setText("");
                 einkaufspreisField.setText("");
                 einkaufszahlenField.setText("");
-                lageranzahlField.setText(String.valueOf(lageranzahl));
+                lageranzahlField.setText("");
 
                 JOptionPane.showMessageDialog(frame, "Produkt erfolgreich hinzugefügt.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
             } catch (NumberFormatException ex) {
@@ -213,7 +209,7 @@ public class ProduktverwaltungsView extends View {
                 geschaeftsfuehrer.produkteSpeichern();
 
                 produktListModel.removeElementAt(produktListe.getSelectedIndex());
-                produktListeSortiertEinfügen(p.getName());
+                produktListeSortiertEinfuegen(p.getName());
 
                 JOptionPane.showMessageDialog(frame, "Produkt aktualisiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
             } catch (NumberFormatException ex) {
@@ -228,7 +224,7 @@ public class ProduktverwaltungsView extends View {
      * Fügt einen Produktnamen alphabetisch sortiert in die Liste ein.
      * Wird nach Hinzufügen und Namensänderungen verwendet.
      */
-    private void produktListeSortiertEinfügen(String name) {
+    private void produktListeSortiertEinfuegen(String name) {
         List<String> produkte = new ArrayList<>();
         for (int i = 0; i < produktListModel.size(); i++) {
             produkte.add(produktListModel.getElementAt(i));
