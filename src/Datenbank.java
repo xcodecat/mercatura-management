@@ -13,6 +13,11 @@ public class Datenbank {
      * Liste aller Produkte des Supermarkts
      */
     private LinkedList<Produkt> produkte;
+    
+    /**
+     * Liste aller Views
+     */
+    private LinkedList<View> views;
 
     /**
      * gesamter Umsatz
@@ -44,6 +49,7 @@ public class Datenbank {
         this.produkte = produkteLaden();
         this.umsatz = 0.0;
         this.tage = finanzenLaden();
+        views = new LinkedList<View>();
     }
 
     /**
@@ -208,6 +214,7 @@ public class Datenbank {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        update();
     }
 
     /**
@@ -311,4 +318,28 @@ public class Datenbank {
         }
         return null;
     }
+    
+    /**
+     * fügt View in Liste der Views hinzu
+     * @param view View, der hinzugefügt wird
+     */
+    public void viewEinfuegen(View view) {
+    	
+    	views.add(view);
+    	
+    }
+    
+    /**
+     * aktualisiert alle Views
+     */
+    public void update() {
+    	
+    	for(int i = 0; i < views.size(); i++) {
+    		
+    		views.get(i).update();
+    		
+    	}
+    	
+    }
+    
 }

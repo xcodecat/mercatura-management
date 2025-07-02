@@ -430,4 +430,10 @@ public class LagermitarbeiterView extends View {
         
 	}
 
+	/**
+	 * aktualisiert View
+	 */
+	protected void update() {
+	}
+
 }

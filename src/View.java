@@ -6,5 +6,7 @@ public abstract class View {
 	protected JFrame frame;
 	
 	public View(){}
+	
+	protected abstract void update();
 
 }
