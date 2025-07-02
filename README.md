@@ -19,6 +19,9 @@ Dieses Projekt dient zur Verwaltung und Bearbeitung von Supermarktprodukten. Die
 - **CSV-Unterstützung**  
   Produkte werden bequem aus einer CSV-Datei eingelesen und gespeichert.
 
+- **JAR-kompatibel**  
+  Die Anwendung kann als ausführbare `.jar` gestartet werden. Alle Daten werden dabei im Unterordner `daten/` gespeichert – relativ zum Speicherort der JAR-Datei. So bleiben Produkt- und Finanzdaten auch nach dem Schließen erhalten.
+
 ## CSV-Datenstruktur
 
 Die CSV-Datei erwartet folgende Spalten (jeweils durch Semikolon `;` getrennt):
@@ -32,10 +35,11 @@ Beispieldatensatz:
 ```
 Apfel;A1;45;14;0.99;20;0.5;70
 Milch;C1;28;10;1.09;8;0.6;40
-...
 ```
 
-## Installation
+## Installation & Ausführung
+
+### IDE
 
 1. Repository klonen:
    ```bash
@@ -43,17 +47,31 @@ Milch;C1;28;10;1.09;8;0.6;40
    cd supermarkt-alpha
    ```
 
-2. Abhängigkeiten installieren (falls erforderlich).
+2. Projekt in eine Java-IDE (z. B. IntelliJ oder Eclipse) importieren.
 
-3. `SupermarktStarter.java` starten
+3. `SupermarktStarter.java` starten.
+
+### JAR
+
+1. Projekt als ausführbare `.jar` exportieren:
+   z. B. `supermarkt.jar`
+
+2. JAR-Datei starten:
+   ```bash
+   java -jar supermarkt.jar
+   ```
+
+3. Die Dateien werden automatisch neben der JAR erstellt:
+   - `produkte.csv`
+   - `finanzen.csv`
+   - `tagstatus.txt`  
 
 ## Projektstruktur
-
-- `produkte.csv` – enthält die initialen Produktdaten
+- `produkte.csv`, `finanzen.csv`, `tagstatus.txt`
 - `src/` – Quellcode der Anwendung
-    -  Klassen wie `Produkt`, `Datenbank`
-    -  Benutzeroberflächen für Lagermitarbeiter und Geschäftsführer
-    -  Logik zur Verarbeitung von Benutzerinteraktionen
+    - Klassen wie `Produkt`, `Datenbank`
+    - Benutzeroberflächen für Lagermitarbeiter und Geschäftsführer
+    - Logik zur Verarbeitung von Benutzerinteraktionen
 - `README.md` – diese Dokumentation
 
 ## Rollen und Benutzeroberflächen
@@ -63,5 +81,3 @@ Milch;C1;28;10;1.09;8;0.6;40
 
 - **Geschäftsführer**  
   → Verwaltung der Verkaufsstatistiken, Preisänderungen, Gesamtauswertung.
-
-- ...
