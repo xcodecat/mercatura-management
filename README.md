@@ -20,7 +20,7 @@ Dieses Projekt dient zur Verwaltung und Bearbeitung von Supermarktprodukten. Die
   Produkte werden bequem aus einer CSV-Datei eingelesen und gespeichert.
 
 - **JAR-kompatibel**  
-  Die Anwendung kann als ausführbare `.jar` gestartet werden. Alle Daten werden dabei im Unterordner `daten/` gespeichert – relativ zum Speicherort der JAR-Datei. So bleiben Produkt- und Finanzdaten auch nach dem Schließen erhalten.
+  Die Anwendung kann als ausführbare `.jar` gestartet werden. Alle Daten werden neben der .jar gespeichert. So bleiben Produkt- und Finanzdaten auch nach dem Schließen erhalten.
 
 ## CSV-Datenstruktur
 
