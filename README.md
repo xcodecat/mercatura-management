@@ -1,4 +1,4 @@
-# Supermarkt Produktverwaltung
+# Mercatura Management
 
 Dieses Projekt dient zur Verwaltung und Bearbeitung von Supermarktprodukten. Die Produkte werden aus einer CSV-Datei eingelesen, im Lager verwaltet und können über eine grafische Benutzeroberfläche bearbeitet werden.
 
